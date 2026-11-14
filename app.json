@@ -1,0 +1,69 @@
+{
+  "expo": {
+    "name": "Jingle",
+    "slug": "jingle",
+    "scheme": "jingle",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/images/icon.png",
+    "userInterfaceStyle": "automatic",
+    "ios": {
+      "bundleIdentifier": "app.jingle.ios",
+      "buildNumber": "1",
+      "supportsTablet": false,
+      "infoPlist": {
+        "NSUserNotificationsUsageDescription": "Jingle uses notifications to ring your alarm when the iPhone is locked.",
+        "ITSAppUsesNonExemptEncryption": false
+      }
+    },
+    "android": {
+      "package": "app.jingle",
+      "adaptiveIcon": {
+        "backgroundColor": "#070708",
+        "foregroundImage": "./assets/images/android-icon-foreground.png",
+        "monochromeImage": "./assets/images/android-icon-monochrome.png"
+      }
+    },
+    "web": {
+      "bundler": "metro",
+      "output": "single",
+      "favicon": "./assets/images/favicon.png",
+      "name": "Jingle",
+      "backgroundColor": "#070708",
+      "themeColor": "#070708"
+    },
+    "plugins": [
+      "expo-router",
+      "expo-audio",
+      [
+        "expo-splash-screen",
+        {
+          "image": "./assets/images/splash-icon.png",
+          "resizeMode": "contain",
+          "backgroundColor": "#070708"
+        }
+      ],
+      [
+        "expo-notifications",
+        {
+          "sounds": [
+            "./assets/sounds/dawn.wav",
+            "./assets/sounds/bell.wav",
+            "./assets/sounds/pulse.wav",
+            "./assets/sounds/chime.wav",
+            "./assets/sounds/machine.wav"
+          ],
+          "mode": "production",
+          "enableRemoteNotifications": false,
+          "color": "#F7931A"
+        }
+      ]
+    ],
+    "experiments": {
+      "typedRoutes": true
+    },
+    "extra": {
+      "eas": {}
+    }
+  }
+}
