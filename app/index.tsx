@@ -201,6 +201,21 @@ export default function ClockScreen() {
         {upcoming ? <Text style={{ color: colors.faint, fontFamily: fonts.medium, fontSize: 13, marginTop: 10 }}>{relativeRing(upcoming.when, now)}</Text> : null}
       </Pressable>
 
+      {upcoming ? (
+        <Pressable
+          testID="try-wake"
+          accessibilityRole="button"
+          accessibilityLabel="Try this wake"
+          onPress={() => {
+            void haptic("medium");
+            router.push(`/ringing?id=${encodeURIComponent(upcoming.alarm.id)}&preview=1`);
+          }}
+          style={[pressCursor, { alignSelf: "center", marginTop: 14, minHeight: 44, justifyContent: "center", paddingHorizontal: 16 }]}
+        >
+          <Text style={{ color: colors.orangeText, fontFamily: fonts.medium, fontSize: 15 }}>Try this wake</Text>
+        </Pressable>
+      ) : null}
+
       <View style={{ flex: 1 }} />
 
       {permission !== "granted" ? (

@@ -62,8 +62,13 @@ export default function RingingScreen() {
   }, [pulse, reduceMotion]);
 
   useEffect(() => {
-    if (preview || !alarm) return;
-    void playSound(SOUNDS[alarm.sound].source, { loop: true, volume: 1 });
+    if (!alarm) return;
+    void playSound(SOUNDS[alarm.sound].source, { loop: true, volume: preview ? 0.85 : 1 });
+    if (preview) {
+      return () => {
+        void stopSound();
+      };
+    }
     const taps = setInterval(() => void haptic("heavy"), 1400);
     void haptic("heavy");
     return () => {
@@ -93,7 +98,7 @@ export default function RingingScreen() {
 
   const parts = clockParts(now);
   const label = alarm?.label ?? "Morning";
-  const canSnooze = !preview && alarm ? alarm.snoozeMinutes > 0 : preview;
+  const canSnooze = !preview && !!alarm && alarm.snoozeMinutes > 0;
   const scale = pulse.interpolate({ inputRange: [0, 1], outputRange: [0.78, 1.28] });
   const opacity = pulse.interpolate({ inputRange: [0, 0.65, 1], outputRange: [0.55, 0.16, 0] });
 
@@ -128,7 +133,7 @@ export default function RingingScreen() {
           <Mark size={132} sun={colors.orange} pill={colors.ivory} glow={colors.glow} />
         </View>
         <Text style={{ color: colors.orangeText, fontFamily: fonts.semibold, letterSpacing: 1.8, marginTop: 8 }}>
-          {purpose === "snooze" ? "SNOOZED" : "TIME TO GET UP"}
+          {preview ? "PREVIEW" : purpose === "snooze" ? "SNOOZED" : "TIME TO GET UP"}
         </Text>
         <Text style={{ color: colors.text, fontFamily: fonts.clock, fontSize: 64, marginTop: 8, fontVariant: ["tabular-nums"] }}>
           {parts.hour}:{parts.minute}
@@ -147,7 +152,7 @@ export default function RingingScreen() {
             onPress={() => leave("snooze")}
           />
         ) : null}
-        <Pill testID="dismiss-button" label="I'm up" onPress={() => leave("dismiss")} />
+        <Pill testID="dismiss-button" label={preview ? "Done" : "I'm up"} onPress={() => leave("dismiss")} />
       </View>
     </View>
   );

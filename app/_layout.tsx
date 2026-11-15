@@ -77,6 +77,7 @@ function RootNavigation() {
             }}
           />
           <Stack.Screen name="settings" options={{ title: "Settings" }} />
+          <Stack.Screen name="privacy" options={{ title: "Privacy" }} />
         </Stack>
       </View>
     </View>

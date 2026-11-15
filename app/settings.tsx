@@ -1,9 +1,11 @@
+import Constants from "expo-constants";
 import { router } from "expo-router";
 import { Linking, Platform, ScrollView, Text, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 import { Mark } from "@/components/Mark";
 import { Pill, Segment, Switch } from "@/components/ui";
+import { APP_VERSION, BUNDLE_ID, privacyPolicyUrl } from "@/src/lib/release";
 import { useAlarms } from "@/src/state/alarms";
 import { useTheme } from "@/src/state/theme";
 import type { ThemeChoice } from "@/src/lib/types";
@@ -14,6 +16,9 @@ export default function SettingsScreen() {
   const { settings, updateSettings, permission, requestPermission, refreshPermission } = useAlarms();
 
   const permissionLabel = permission === "granted" ? "On" : permission === "denied" ? "Off" : "Not asked";
+  const version = Constants.expoConfig?.version ?? APP_VERSION;
+  const bundleId = Constants.expoConfig?.ios?.bundleIdentifier ?? BUNDLE_ID;
+  const publicPolicy = privacyPolicyUrl(process.env.EXPO_PUBLIC_PRIVACY_POLICY_URL);
 
   return (
     <ScrollView
@@ -101,7 +106,30 @@ export default function SettingsScreen() {
           Your wake up morning companion.
         </Text>
         <Text style={{ color: colors.faint, fontFamily: fonts.body, fontSize: 13, marginTop: 14, textAlign: "center", lineHeight: 19 }}>
-          Designed by Matthew. Wake tones are original, synthesized for Jingle. Alarms stay on this phone.
+          Designed by Matthew Finley. Wake tones are original. Alarms stay on this phone.
+        </Text>
+        <Text style={{ color: colors.faint, fontFamily: fonts.medium, fontSize: 13, marginTop: 8, textAlign: "center" }}>
+          Version {version} · {bundleId}
+        </Text>
+        <Text
+          testID="privacy-link"
+          accessibilityRole="link"
+          onPress={() => router.push("/privacy")}
+          style={{ color: colors.orangeText, fontFamily: fonts.medium, fontSize: 15, marginTop: 16 }}
+        >
+          Privacy policy
+        </Text>
+        {publicPolicy ? (
+          <Text
+            accessibilityRole="link"
+            onPress={() => void Linking.openURL(publicPolicy)}
+            style={{ color: colors.orangeText, fontFamily: fonts.medium, fontSize: 15, marginTop: 12, textAlign: "center" }}
+          >
+            Privacy policy on the web
+          </Text>
+        ) : null}
+        <Text style={{ color: colors.faint, fontFamily: fonts.body, fontSize: 13, marginTop: 12 }}>
+          MIT License
         </Text>
         <PressableBack />
       </View>

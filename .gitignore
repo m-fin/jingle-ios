@@ -14,8 +14,13 @@ expo-env.d.ts
 *.p8
 *.p12
 *.key
-*.mobileprovision
 *.pem
+*.cer
+*.certSigningRequest
+*.csr
+*.mobileprovision
+*.provisionprofile
+*.keystore
 
 # Metro
 .metro-health-check*
@@ -28,9 +33,10 @@ yarn-error.*
 # macOS
 .DS_Store
 
-# local env files
+# local env files — keep the placeholder
 .env
-.env*.local
+.env.*
+!.env.example
 
 # typescript
 *.tsbuildinfo
@@ -43,7 +49,11 @@ yarn-error.*
 /screenshots/
 .playwright-mcp/
 
-# secrets and signing
+# secrets and signing — EAS should hold these, never git
 credentials.json
+credentials/
 google-service-account.json
+google-services.json
+GoogleService-Info.plist
+AuthKey_*.p8
 *.mobileprovision
