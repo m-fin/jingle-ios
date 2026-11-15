@@ -1,0 +1,59 @@
+# dependencies
+node_modules/
+
+# Expo
+.expo/
+dist/
+web-build/
+expo-env.d.ts
+
+# Native
+.kotlin/
+*.orig.*
+*.jks
+*.p8
+*.p12
+*.key
+*.pem
+*.cer
+*.certSigningRequest
+*.csr
+*.mobileprovision
+*.provisionprofile
+*.keystore
+
+# Metro
+.metro-health-check*
+
+# debug
+npm-debug.*
+yarn-debug.*
+yarn-error.*
+
+# macOS
+.DS_Store
+
+# local env files — keep the placeholder
+.env
+.env.*
+!.env.example
+
+# typescript
+*.tsbuildinfo
+
+# generated native folders
+/ios
+/android
+
+# local verification
+/screenshots/
+.playwright-mcp/
+
+# secrets and signing — EAS should hold these, never git
+credentials.json
+credentials/
+google-service-account.json
+google-services.json
+GoogleService-Info.plist
+AuthKey_*.p8
+*.mobileprovision
