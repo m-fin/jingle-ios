@@ -1,0 +1,17 @@
+name: JingleCore
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+jobs:
+  test:
+    name: swift test
+    runs-on: ubuntu-latest
+    container: swift:6.4.3
+    steps:
+      - uses: actions/checkout@v4
+      - name: Unit tests
+        working-directory: ios-native/JingleCore
+        run: swift test

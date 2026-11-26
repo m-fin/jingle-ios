@@ -6,6 +6,10 @@ Jingle is a dark bedside clock. The time comes from the iPhone. The display can 
 
 Designed by Matthew Finley. Source is released under the [MIT License](LICENSE). Copyright 2026 Matthew Finley.
 
+## Native Xcode app
+
+`ios-native/` is a SwiftUI project for the same bundle id, `app.jingle.ios`. Open `ios-native/Jingle.xcodeproj` on a Mac. The Expo app in this folder stays as it is. Steps are in [ios-native/README.md](ios-native/README.md).
+
 The hardware notes in `assets/` describe a separate one-button clock (one alarm, no snooze, no phone). This repository is the iPhone app, which keeps repeat alarms and an optional snooze because a phone can hold them. Snooze can be turned off on each alarm.
 
 ## Run it without a paid Apple account
