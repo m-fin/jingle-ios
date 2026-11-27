@@ -30,6 +30,8 @@
 	<true/>
 	<key>NSUserNotificationsUsageDescription</key>
 	<string>Jingle uses notifications to ring your alarm when the iPhone is locked.</string>
+	<key>NSAlarmKitUsageDescription</key>
+	<string>Jingle rings your alarm when the iPhone is locked or the Ring/Silent switch is on silent.</string>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>

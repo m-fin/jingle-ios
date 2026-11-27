@@ -8,22 +8,33 @@ public enum NotificationAuthorization: String, Equatable, Sendable {
     case ephemeral
 }
 
+/// AlarmKit authorization. `.unavailable` means this OS has no AlarmKit.
+public enum AlarmKitAuthorization: String, Equatable, Sendable {
+    case unavailable
+    case notDetermined
+    case authorized
+    case denied
+}
+
 public struct PermissionSignals: Equatable, Sendable {
     public var authorization: NotificationAuthorization
     public var soundOn: Bool
     public var timeSensitiveOn: Bool
     public var liveActivitiesOn: Bool
+    public var alarmKit: AlarmKitAuthorization
 
     public init(
         authorization: NotificationAuthorization,
         soundOn: Bool,
         timeSensitiveOn: Bool,
-        liveActivitiesOn: Bool
+        liveActivitiesOn: Bool,
+        alarmKit: AlarmKitAuthorization = .unavailable
     ) {
         self.authorization = authorization
         self.soundOn = soundOn
         self.timeSensitiveOn = timeSensitiveOn
         self.liveActivitiesOn = liveActivitiesOn
+        self.alarmKit = alarmKit
     }
 }
 
@@ -32,6 +43,7 @@ public enum PermissionGap: String, Equatable, Sendable, CaseIterable {
     case sound
     case timeSensitive
     case liveActivities
+    case alarmKit
 
     public var sentence: String {
         switch self {
@@ -39,14 +51,16 @@ public enum PermissionGap: String, Equatable, Sendable, CaseIterable {
         case .sound: return "Notification sound is off."
         case .timeSensitive: return "Time Sensitive alerts are off."
         case .liveActivities: return "Live Activities are off."
+        case .alarmKit: return "Alarm access is off."
         }
     }
 }
 
 public struct PermissionReadiness: Equatable, Sendable {
-    public static let ringSwitchNote = "Set the Ring/Silent switch to Ring so a locked iPhone can start the alert."
+    public static let ringSwitchNote = "A locked notification follows the Ring/Silent switch. Allow Alarms, or leave Jingle open, to ring on silent too."
 
     public var authorization: NotificationAuthorization
+    public var alarmKit: AlarmKitAuthorization
     public var gaps: [PermissionGap]
     public var showsSettingsBanner: Bool
     public var bannerMessage: String
@@ -57,6 +71,7 @@ public struct PermissionReadiness: Equatable, Sendable {
 
     public init(
         authorization: NotificationAuthorization,
+        alarmKit: AlarmKitAuthorization,
         gaps: [PermissionGap],
         showsSettingsBanner: Bool,
         bannerMessage: String,
@@ -66,6 +81,7 @@ public struct PermissionReadiness: Equatable, Sendable {
         requestsPromptInsteadOfSettings: Bool
     ) {
         self.authorization = authorization
+        self.alarmKit = alarmKit
         self.gaps = gaps
         self.showsSettingsBanner = showsSettingsBanner
         self.bannerMessage = bannerMessage
@@ -91,19 +107,34 @@ public enum PermissionReadinessEvaluator {
         if !signals.liveActivitiesOn {
             gaps.append(.liveActivities)
         }
+        if signals.alarmKit == .denied || signals.alarmKit == .notDetermined {
+            gaps.append(.alarmKit)
+        }
         let bannerGaps = gaps.filter { $0 != .liveActivities }
         let banner = bannerGaps.map(\.sentence).joined(separator: " ")
-        let prompt = signals.authorization == .notDetermined
+        let needsNotificationPrompt = signals.authorization == .notDetermined
+        let needsAlarmPrompt = signals.alarmKit == .notDetermined
+        let prompt = needsNotificationPrompt || needsAlarmPrompt
+        let button: String
+        if needsNotificationPrompt {
+            button = "Allow Notifications"
+        } else if needsAlarmPrompt {
+            button = "Allow Alarms"
+        } else {
+            button = "Open Settings"
+        }
+        let mentionSwitch = !bannerGaps.isEmpty && signals.alarmKit != .authorized
         return PermissionReadiness(
             authorization: signals.authorization,
+            alarmKit: signals.alarmKit,
             gaps: gaps,
             showsSettingsBanner: !bannerGaps.isEmpty,
             bannerMessage: banner,
-            ringSwitchNote: bannerGaps.isEmpty ? "" : PermissionReadiness.ringSwitchNote,
+            ringSwitchNote: mentionSwitch ? PermissionReadiness.ringSwitchNote : "",
             liveActivityNote: gaps.contains(.liveActivities)
                 ? "Live Activities are off, so the Lock Screen and Dynamic Island will not show the countdown."
                 : nil,
-            settingsButtonTitle: prompt ? "Allow Notifications" : "Open Settings",
+            settingsButtonTitle: button,
             requestsPromptInsteadOfSettings: prompt
         )
     }

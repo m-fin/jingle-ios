@@ -15,10 +15,21 @@ public struct PlannedNotificationAction: Equatable, Sendable {
 }
 
 public struct ForegroundPresentation: Equatable, Sendable {
-    public var includesAlert: Bool
-    public var includesSound: Bool
+    public var showsBanner: Bool
+    public var showsList: Bool
+    public var playsSound: Bool
 
-    public static let alarm = ForegroundPresentation(includesAlert: true, includesSound: true)
+    /// Banner and list together are the replacement for the deprecated `.alert` option.
+    public var includesAlert: Bool { showsBanner || showsList }
+    public var includesSound: Bool { playsSound }
+
+    public init(showsBanner: Bool, showsList: Bool, playsSound: Bool) {
+        self.showsBanner = showsBanner
+        self.showsList = showsList
+        self.playsSound = playsSound
+    }
+
+    public static let alarm = ForegroundPresentation(showsBanner: true, showsList: true, playsSound: true)
 }
 
 public struct PlannedNotification: Equatable, Sendable {
