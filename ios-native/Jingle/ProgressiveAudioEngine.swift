@@ -22,6 +22,11 @@ final class ProgressiveAudioEngine {
     private var volumeTimer: Timer?
     private var stopTimer: Timer?
     private var previewing = false
+    private var machinePlayer: AVAudioPlayer?
+    private var machineFadeStarted: Date?
+    private var playingMachine = false
+
+    var isPlayingMachine: Bool { playingMachine && machinePlayer != nil }
 
     /// Interruptions update playback state and leave the Live Activity alone.
     var onInterruption: ((PlaybackInterrupt) -> Void)?
@@ -39,10 +44,32 @@ final class ProgressiveAudioEngine {
         previewing = false
         stopTimer?.invalidate()
         playback = .ringing(alarmID: alarmID)
-        start(tone: tone, rampSeconds: TimeInterval(rampSeconds))
+        if playingMachine {
+            machineFadeStarted = Date()
+        }
+        start(tone: tone, rampSeconds: TimeInterval(rampSeconds), leavingMachine: true)
+    }
+
+    func playMachine() {
+        previewing = false
+        startMachine(looping: true, previewSeconds: nil)
+    }
+
+    func previewMachine() {
+        previewing = true
+        playback = .idle
+        startMachine(looping: true, previewSeconds: 12)
+    }
+
+    func stopMachine() {
+        machineFadeStarted = nil
+        machinePlayer?.stop()
+        machinePlayer = nil
+        playingMachine = false
     }
 
     func playPreview(tone: WakeTone, rampSeconds: Int) {
+        stopMachine()
         previewing = true
         playback = .idle
         let shortened = min(TimeInterval(max(rampSeconds, 1)), 8)
@@ -65,7 +92,10 @@ final class ProgressiveAudioEngine {
         tearDownPlayback()
     }
 
-    private func start(tone: WakeTone, rampSeconds: TimeInterval) {
+    private func start(tone: WakeTone, rampSeconds: TimeInterval, leavingMachine: Bool = false) {
+        if !leavingMachine {
+            stopMachine()
+        }
         tearDownPlayers()
         self.rampSeconds = rampSeconds
         elapsedBeforePause = 0
@@ -100,6 +130,53 @@ final class ProgressiveAudioEngine {
         return Bundle.main.url(forResource: name.deletingPathExtension, withExtension: name.pathExtension)
     }
 
+    static func machineURL() -> URL? {
+        Bundle.main.url(forResource: "machine-mode", withExtension: "caf")
+    }
+
+    private func startMachine(looping: Bool, previewSeconds: TimeInterval?) {
+        stopTimer?.invalidate()
+        tearDownPlayers()
+        machineFadeStarted = nil
+        machinePlayer?.stop()
+        machinePlayer = nil
+        playingMachine = false
+        guard let url = Self.machineURL() else { return }
+        do {
+            try configureSession()
+            let player = try AVAudioPlayer(contentsOf: url)
+            player.numberOfLoops = looping ? -1 : 0
+            player.volume = Float(MachineMode.playbackVolume)
+            player.prepareToPlay()
+            player.play()
+            machinePlayer = player
+            playingMachine = true
+            if volumeTimer == nil {
+                volumeTimer = Timer.scheduledTimer(withTimeInterval: 0.02, repeats: true) { [weak self] _ in
+                    self?.tick()
+                }
+            }
+            if let previewSeconds {
+                stopTimer = Timer.scheduledTimer(withTimeInterval: previewSeconds, repeats: false) { [weak self] _ in
+                    self?.stopPreview()
+                }
+            }
+        } catch {
+            stopMachine()
+        }
+    }
+
+    private func fadeMachineIfNeeded() {
+        guard playingMachine, let player = machinePlayer else { return }
+        guard let started = machineFadeStarted else { return }
+        let t = Date().timeIntervalSince(started) / MachineMode.fadeOutSeconds
+        if t >= 1 {
+            stopMachine()
+        } else {
+            player.volume = Float(MachineMode.playbackVolume) * Float(max(0, 1 - t))
+        }
+    }
+
     private func configureSession() throws {
         let configuration = AudioSessionConfiguration.alarmPlayback
         let session = AVAudioSession.sharedInstance()
@@ -115,6 +192,7 @@ final class ProgressiveAudioEngine {
     }
 
     private func tick() {
+        fadeMachineIfNeeded()
         let master = Float(masterGain())
         guard players.indices.contains(activeIndex) else { return }
         let lead = players[activeIndex]
@@ -184,6 +262,7 @@ final class ProgressiveAudioEngine {
         stopTimer = nil
         segmentStarted = nil
         elapsedBeforePause = 0
+        stopMachine()
         tearDownPlayers()
     }
 
@@ -205,6 +284,7 @@ final class ProgressiveAudioEngine {
             playback = AlarmPlaybackReducer.reduce(playback, event)
             freezeElapsed()
             players.forEach { $0.pause() }
+            machinePlayer?.pause()
             noteInterruption(event)
         case .ended:
             let optionsRaw = info[AVAudioSessionInterruptionOptionKey] as? UInt ?? 0
@@ -222,6 +302,9 @@ final class ProgressiveAudioEngine {
                 outgoing.play()
             } else if players.indices.contains(activeIndex) {
                 players[activeIndex].play()
+            }
+            if playingMachine {
+                machinePlayer?.play()
             }
         default:
             break

@@ -10,6 +10,8 @@ public struct Alarm: Codable, Equatable, Identifiable, Sendable, Hashable {
     public var repeatWeekdays: Set<Weekday>
     public var tone: WakeTone
     public var progressiveRampSeconds: Int
+    /// Minutes of gentle machine-mode sound before the alarm. Zero turns it off.
+    public var machineLeadMinutes: Int
 
     public init(
         id: String,
@@ -19,7 +21,8 @@ public struct Alarm: Codable, Equatable, Identifiable, Sendable, Hashable {
         enabled: Bool,
         repeatWeekdays: Set<Weekday>,
         tone: WakeTone,
-        progressiveRampSeconds: Int
+        progressiveRampSeconds: Int,
+        machineLeadMinutes: Int = 0
     ) {
         self.id = id
         self.hour = hour
@@ -29,6 +32,7 @@ public struct Alarm: Codable, Equatable, Identifiable, Sendable, Hashable {
         self.repeatWeekdays = repeatWeekdays
         self.tone = tone
         self.progressiveRampSeconds = progressiveRampSeconds
+        self.machineLeadMinutes = machineLeadMinutes
     }
 
     public static func weekdayMorning() -> Alarm {
@@ -40,7 +44,8 @@ public struct Alarm: Codable, Equatable, Identifiable, Sendable, Hashable {
             enabled: true,
             repeatWeekdays: Weekday.weekdays,
             tone: .pocketOfBells,
-            progressiveRampSeconds: 60
+            progressiveRampSeconds: 60,
+            machineLeadMinutes: 0
         )
     }
 
@@ -51,6 +56,7 @@ public struct Alarm: Codable, Equatable, Identifiable, Sendable, Hashable {
         copy.hour = min(23, max(0, hour))
         copy.minute = min(59, max(0, minute))
         copy.progressiveRampSeconds = min(600, max(0, progressiveRampSeconds))
+        copy.machineLeadMinutes = MachineMode.normalizedLead(machineLeadMinutes)
         copy.id = String(id.prefix(80))
         return copy
     }
@@ -66,6 +72,7 @@ public struct Alarm: Codable, Equatable, Identifiable, Sendable, Hashable {
         try container.encode(clean.repeatWeekdays.map(\.rawValue).sorted(), forKey: .repeatWeekdays)
         try container.encode(clean.tone, forKey: .tone)
         try container.encode(clean.progressiveRampSeconds, forKey: .progressiveRampSeconds)
+        try container.encode(clean.machineLeadMinutes, forKey: .machineLeadMinutes)
     }
 
     public init(from decoder: Decoder) throws {
@@ -79,6 +86,7 @@ public struct Alarm: Codable, Equatable, Identifiable, Sendable, Hashable {
         let days = Set(rawDays.compactMap(Weekday.init(rawValue:)))
         let tone = try container.decodeIfPresent(WakeTone.self, forKey: .tone) ?? .pocketOfBells
         let ramp = try container.decodeIfPresent(Int.self, forKey: .progressiveRampSeconds) ?? 60
+        let machineLead = try container.decodeIfPresent(Int.self, forKey: .machineLeadMinutes) ?? 0
         self.init(
             id: id,
             hour: hour,
@@ -87,12 +95,13 @@ public struct Alarm: Codable, Equatable, Identifiable, Sendable, Hashable {
             enabled: enabled,
             repeatWeekdays: days,
             tone: tone,
-            progressiveRampSeconds: ramp
+            progressiveRampSeconds: ramp,
+            machineLeadMinutes: machineLead
         )
     }
 
     private enum CodingKeys: String, CodingKey {
-        case id, hour, minute, label, enabled, repeatWeekdays, tone, progressiveRampSeconds
+        case id, hour, minute, label, enabled, repeatWeekdays, tone, progressiveRampSeconds, machineLeadMinutes
     }
 }
 

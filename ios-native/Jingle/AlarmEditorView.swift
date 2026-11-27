@@ -4,6 +4,7 @@ import SwiftUI
 struct AlarmEditorView: View {
     @EnvironmentObject private var model: AlarmController
     @Environment(\.dismiss) private var dismiss
+    @Environment(\.jinglePalette) private var theme
     @State private var draft: Alarm
 
     init(draft: EditorDraft) {
@@ -13,7 +14,7 @@ struct AlarmEditorView: View {
     var body: some View {
         NavigationStack {
             ZStack {
-                JingleTheme.background.ignoresSafeArea()
+                theme.background.ignoresSafeArea()
                 ScrollView {
                     VStack(alignment: .leading, spacing: 22) {
                         timePicker
@@ -21,6 +22,7 @@ struct AlarmEditorView: View {
                         weekdaySection
                         toneSection
                         rampSection
+                        machineSection
                         if !isNew {
                             Button(role: .destructive) {
                                 model.delete(draft.id)
@@ -38,7 +40,7 @@ struct AlarmEditorView: View {
             }
             .navigationTitle(isNew ? "Add Alarm" : "Edit Alarm")
             .navigationBarTitleDisplayMode(.inline)
-            .toolbarBackground(JingleTheme.background, for: .navigationBar)
+            .toolbarBackground(theme.background, for: .navigationBar)
             .toolbarBackground(.visible, for: .navigationBar)
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
@@ -56,7 +58,7 @@ struct AlarmEditorView: View {
                 }
             }
         }
-        .preferredColorScheme(.dark)
+        .preferredColorScheme(theme.preferredColorScheme)
         .onDisappear { model.stopPreview() }
     }
 
@@ -79,7 +81,7 @@ struct AlarmEditorView: View {
         )
         .datePickerStyle(.wheel)
         .labelsHidden()
-        .colorScheme(.dark)
+        .colorScheme(theme.preferredColorScheme)
         .frame(maxWidth: .infinity)
         .frame(height: 180)
         .accessibilityLabel("Alarm time")
@@ -90,10 +92,10 @@ struct AlarmEditorView: View {
             Text("LABEL")
                 .font(.jingleText(12, weight: .semibold))
                 .tracking(1.6)
-                .foregroundStyle(JingleTheme.muted)
+                .foregroundStyle(theme.muted)
             TextField("Alarm", text: $draft.label)
                 .font(.jingleText(20, weight: .medium))
-                .foregroundStyle(JingleTheme.text)
+                .foregroundStyle(theme.text)
                 .textInputAutocapitalization(.words)
                 .submitLabel(.done)
         }
@@ -105,11 +107,11 @@ struct AlarmEditorView: View {
                 Text("REPEAT")
                     .font(.jingleText(12, weight: .semibold))
                     .tracking(1.6)
-                    .foregroundStyle(JingleTheme.muted)
+                    .foregroundStyle(theme.muted)
                 Spacer()
                 Text(AlarmClockText.repeatSummary(draft.repeatWeekdays))
                     .font(.jingleText(14, weight: .medium))
-                    .foregroundStyle(JingleTheme.orangeText)
+                    .foregroundStyle(theme.orangeText)
             }
             HStack(spacing: 8) {
                 ForEach(Weekday.allCases, id: \.self) { day in
@@ -125,8 +127,8 @@ struct AlarmEditorView: View {
                             .font(.jingleText(15, weight: .semibold))
                             .frame(maxWidth: .infinity)
                             .padding(.vertical, 10)
-                            .foregroundStyle(on ? JingleTheme.onOrange : JingleTheme.text)
-                            .background(on ? JingleTheme.orange : JingleTheme.card, in: Capsule())
+                            .foregroundStyle(on ? theme.onOrange : theme.text)
+                            .background(on ? theme.orange : theme.card, in: Capsule())
                     }
                     .buttonStyle(.plain)
                     .accessibilityLabel(day.name)
@@ -135,7 +137,7 @@ struct AlarmEditorView: View {
             }
             Text("Leave every day off to ring once.")
                 .font(.jingleText(13))
-                .foregroundStyle(JingleTheme.faint)
+                .foregroundStyle(theme.faint)
         }
     }
 
@@ -144,7 +146,7 @@ struct AlarmEditorView: View {
             Text("WAKE TONE")
                 .font(.jingleText(12, weight: .semibold))
                 .tracking(1.6)
-                .foregroundStyle(JingleTheme.muted)
+                .foregroundStyle(theme.muted)
             ForEach(WakeTone.allCases, id: \.self) { tone in
                 Button {
                     draft.tone = tone
@@ -154,31 +156,31 @@ struct AlarmEditorView: View {
                             HStack(spacing: 8) {
                                 Text(tone.displayName)
                                     .font(.jingleText(17, weight: .semibold))
-                                    .foregroundStyle(JingleTheme.text)
+                                    .foregroundStyle(theme.text)
                                 if tone == .featured {
                                     Text("Featured")
                                         .font(.jingleText(11, weight: .semibold))
-                                        .foregroundStyle(JingleTheme.onOrange)
+                                        .foregroundStyle(theme.onOrange)
                                         .padding(.horizontal, 8)
                                         .padding(.vertical, 3)
-                                        .background(JingleTheme.orange, in: Capsule())
+                                        .background(theme.orange, in: Capsule())
                                 }
                             }
                             Text(tone.detail)
                                 .font(.jingleText(13))
-                                .foregroundStyle(JingleTheme.muted)
+                                .foregroundStyle(theme.muted)
                         }
                         Spacer()
                         if draft.tone == tone {
                             Image(systemName: "checkmark")
-                                .foregroundStyle(JingleTheme.orangeText)
+                                .foregroundStyle(theme.orangeText)
                         }
                     }
                     .padding(14)
-                    .background(JingleTheme.card, in: RoundedRectangle(cornerRadius: 18, style: .continuous))
+                    .background(theme.card, in: RoundedRectangle(cornerRadius: 18, style: .continuous))
                     .overlay(
                         RoundedRectangle(cornerRadius: 18, style: .continuous)
-                            .stroke(draft.tone == tone ? JingleTheme.orange.opacity(0.8) : JingleTheme.stroke, lineWidth: 1)
+                            .stroke(draft.tone == tone ? theme.orange.opacity(0.8) : theme.stroke, lineWidth: 1)
                     )
                 }
                 .buttonStyle(.plain)
@@ -188,10 +190,10 @@ struct AlarmEditorView: View {
             } label: {
                 Text(model.previewingTone == draft.tone ? "Stop preview" : "Try this wake")
                     .font(.jingleText(16, weight: .semibold))
-                    .foregroundStyle(JingleTheme.onOrange)
+                    .foregroundStyle(theme.onOrange)
                     .frame(maxWidth: .infinity)
                     .padding(.vertical, 14)
-                    .background(JingleTheme.orange, in: RoundedRectangle(cornerRadius: 16, style: .continuous))
+                    .background(theme.orange, in: RoundedRectangle(cornerRadius: 16, style: .continuous))
             }
             .buttonStyle(.plain)
             .accessibilityLabel("Try this wake")
@@ -203,7 +205,7 @@ struct AlarmEditorView: View {
             Text("GENTLE RISE")
                 .font(.jingleText(12, weight: .semibold))
                 .tracking(1.6)
-                .foregroundStyle(JingleTheme.muted)
+                .foregroundStyle(theme.muted)
             HStack(spacing: 8) {
                 ForEach(Self.ramps, id: \.seconds) { option in
                     let on = draft.progressiveRampSeconds == option.seconds
@@ -214,15 +216,57 @@ struct AlarmEditorView: View {
                             .font(.jingleText(14, weight: .semibold))
                             .frame(maxWidth: .infinity)
                             .padding(.vertical, 10)
-                            .foregroundStyle(on ? JingleTheme.onOrange : JingleTheme.text)
-                            .background(on ? JingleTheme.orange : JingleTheme.card, in: Capsule())
+                            .foregroundStyle(on ? theme.onOrange : theme.text)
+                            .background(on ? theme.orange : theme.card, in: Capsule())
                     }
                     .buttonStyle(.plain)
                 }
             }
             Text("Volume eases in over this long, then holds.")
                 .font(.jingleText(13))
-                .foregroundStyle(JingleTheme.faint)
+                .foregroundStyle(theme.faint)
+        }
+    }
+
+    private var machineSection: some View {
+        VStack(alignment: .leading, spacing: 10) {
+            Text("MACHINE MODE")
+                .font(.jingleText(12, weight: .semibold))
+                .tracking(1.6)
+                .foregroundStyle(theme.muted)
+            HStack(spacing: 8) {
+                ForEach(MachineMode.allowedLeadMinutes, id: \.self) { minutes in
+                    let on = draft.machineLeadMinutes == minutes
+                    Button {
+                        draft.machineLeadMinutes = minutes
+                    } label: {
+                        Text(minutes == 0 ? "Off" : "\(minutes) min")
+                            .font(.jingleText(14, weight: .semibold))
+                            .frame(maxWidth: .infinity)
+                            .padding(.vertical, 10)
+                            .foregroundStyle(on ? theme.onOrange : theme.text)
+                            .background(on ? theme.orange : theme.card, in: Capsule())
+                    }
+                    .buttonStyle(.plain)
+                }
+            }
+            Text("A quiet drone starts this long before the alarm, then fades into the wake tone.")
+                .font(.jingleText(13))
+                .foregroundStyle(theme.faint)
+            if draft.machineLeadMinutes > 0 {
+                Button {
+                    model.previewMachine()
+                } label: {
+                    Text(model.previewingMachine ? "Stop preview" : "Try machine mode")
+                        .font(.jingleText(16, weight: .semibold))
+                        .foregroundStyle(theme.onOrange)
+                        .frame(maxWidth: .infinity)
+                        .padding(.vertical, 14)
+                        .background(theme.orange, in: RoundedRectangle(cornerRadius: 16, style: .continuous))
+                }
+                .buttonStyle(.plain)
+                .accessibilityLabel("Try machine mode")
+            }
         }
     }
 

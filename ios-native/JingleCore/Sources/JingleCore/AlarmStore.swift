@@ -146,6 +146,7 @@ public final class AlarmStore {
             "repeatWeekdays": alarm.repeatWeekdays.map(\.rawValue).sorted(),
             "tone": alarm.tone.rawValue,
             "progressiveRampSeconds": alarm.progressiveRampSeconds,
+            "machineLeadMinutes": alarm.machineLeadMinutes,
         ]
     }
 
@@ -159,6 +160,7 @@ public final class AlarmStore {
         let days = (row["repeatWeekdays"] as? [Int] ?? []).compactMap(Weekday.init(rawValue:))
         let tone = WakeTone(rawValue: (row["tone"] as? String) ?? "") ?? .pocketOfBells
         let ramp = row["progressiveRampSeconds"] as? Int ?? 60
+        let machineLead = row["machineLeadMinutes"] as? Int ?? 0
         return Alarm(
             id: id,
             hour: hour,
@@ -167,7 +169,8 @@ public final class AlarmStore {
             enabled: enabled,
             repeatWeekdays: Set(days),
             tone: tone,
-            progressiveRampSeconds: ramp
+            progressiveRampSeconds: ramp,
+            machineLeadMinutes: machineLead
         ).normalized()
     }
 

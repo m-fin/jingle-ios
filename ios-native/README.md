@@ -4,7 +4,7 @@ Native SwiftUI alarm clock for iPhone. Bundle id `app.jingle.ios`. Version 1.0.0
 
 Designed by Matthew Finley. The source is MIT, same as the rest of this repository. Copyright 2026 Matthew Finley.
 
-This folder sits beside the Expo app. It does not replace it. Alarms are dismiss-only. The featured wake is **A Pocket of Bells**, from *The Unstartled Morning* by Matthew Finley. Seven more original pieces are in the same picker.
+This folder sits beside the Expo app. It does not replace it. Alarms are dismiss-only. Open Settings for Matte Black, Stone, and Bitcoin Orange faces, a blank-the-display mode with optional bedside dim, and machine mode (a quiet pre-wake drone that fades into the wake tone). The featured wake is **A Pocket of Bells**, from *The Unstartled Morning* by Matthew Finley. Seven more original pieces are in the same picker.
 
 Jingle keeps alarms on the phone. There is no account, no tracking, and no collected data. The privacy manifest declares UserDefaults reason `CA92.1` only.
 
