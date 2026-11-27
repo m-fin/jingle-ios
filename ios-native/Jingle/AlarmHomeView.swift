@@ -67,9 +67,7 @@ struct AlarmHomeView: View {
         }
         .task { await model.start() }
         .onChange(of: scenePhase) { _, phase in
-            if phase == .active {
-                Task { await model.refreshPermissions() }
-            }
+            Task { await model.noteScenePhase(phase) }
         }
         .sheet(item: $model.editor) { draft in
             AlarmEditorView(draft: draft)
@@ -198,7 +196,7 @@ struct AlarmHomeView: View {
     private var footnotes: some View {
         VStack(alignment: .leading, spacing: 8) {
             Text("Plays alongside the iPhone Clock app, even at the same minute. Once a wake has started, Jingle keeps playing in the background and follows the volume buttons.")
-            Text("A locked-phone notification still needs the Ring/Silent switch set to Ring.")
+            Text(SilentSwitchGuidance.footnote(alarmKit: model.readiness.alarmKit))
             Text("Designed by Matthew Finley. Alarms stay on this iPhone.")
         }
         .font(.jingleText(13))

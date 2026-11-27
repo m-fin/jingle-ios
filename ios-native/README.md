@@ -30,11 +30,11 @@ You need Xcode 16 or newer and the Individual Apple Developer Program membership
 9. The App ID `app.jingle.ios` is the same one the Expo app uses. Adding the App Group and Time Sensitive Notifications does not turn on remote push. Do not enable Critical Alerts. That entitlement is not in this project, and adding it without Apple’s prior approval breaks signing.
 10. Press Run.
 
-On first launch Jingle asks for notifications (alert, sound, and badge). Then:
+On first launch Jingle asks for notifications (alert, sound, badge, and Time Sensitive) and, on iOS 26, for Alarms. Then:
 
 - Settings → Notifications → Jingle: allow notifications, sounds, and Time Sensitive Notifications.
 - Settings → Jingle → Live Activities: on.
-- Set the Ring/Silent switch to Ring before a locked-phone test.
+- Allow Alarms when iOS asks. That is what rings with the phone locked and with the Ring/Silent switch on silent.
 
 The app group is how the home screen widget and the Live Activity read the next alarm. If the group is missing, the widget stays empty even though the app itself still stores alarms.
 
@@ -46,22 +46,25 @@ The main screen shows the next alarm, a countdown, the alarm list, and a **+** b
 
 An empty weekday row rings once and then turns off. Weekdays, weekends, and every day keep repeating. Dismiss is the only action, in the app, on the notification, and on the Live Activity.
 
-While a wake is playing, Jingle uses an audio session with category Playback and Mix With Others, plus the `audio` background mode. That session follows the volume buttons and keeps going if you leave the app. It also mixes with the iOS Clock app, so the two can sound together.
+While a wake is playing, Jingle uses an audio session with category Playback and Mix With Others, plus the `audio` background mode. Playback ignores the Ring/Silent switch. The session follows the volume buttons and keeps going if you leave the app. It also mixes with the iOS Clock app, so the two can sound together.
 
-A locked iPhone still starts from a local notification. That notification uses the Time Sensitive interruption level and the 28-second CAF for the chosen tone. It follows notification settings and the Ring/Silent switch. When Jingle is open, or already playing, the same file continues and then loops its arrived section until you dismiss it.
+On iOS 26, an allowed Alarm is the locked-phone path. AlarmKit rings on the Lock Screen, in the background, and when the Ring/Silent switch is on silent. The tone is the same 28-second mono little-endian CAF, copied to the top of the app bundle. Jingle does not also post a sounding notification for that alarm, so the tone is not played twice.
+
+Without AlarmKit (iOS 17 through 25, or Alarms denied), Jingle schedules a Time Sensitive notification with that CAF. The notification sound follows the Ring/Silent switch. If you leave Jingle running, it keeps an inaudible playback session in the background so the in-app tone can still start when the phone locks. Force-quitting Jingle ends that session. When Jingle is open, the notification delegate presents a banner, the notification list, and sound, and starts the same playback immediately.
 
 If notifications, sound, or Time Sensitive alerts are off, the main screen shows a short banner and an **Open Settings** button (or **Allow Notifications** if iOS has not asked yet).
 
 ## Locked-phone check before TestFlight
 
-Do this on the iPhone before you archive.
+Do this on a physical iPhone before you archive. The Simulator does not reproduce the Ring/Silent switch.
 
 1. Run Jingle from Xcode onto the phone.
-2. Allow notifications. Turn on Sounds and Time Sensitive Notifications for Jingle. Turn on Live Activities.
-3. Set the Ring/Silent switch to Ring.
-4. Add an alarm two or three minutes ahead. Leave the tone on A Pocket of Bells and choose a 30 second rise.
-5. Leave Jingle, lock the phone, and wait.
-6. The lock screen should show Jingle’s alert and, when a next alarm is armed, the Live Activity. The short bell tone plays from the notification. Open Jingle and tap **Dismiss**. A one-time alarm turns off. A repeating alarm stays armed for the next day.
+2. Allow notifications. Turn on Sounds and Time Sensitive Notifications for Jingle. Turn on Live Activities. On iOS 26, allow Alarms.
+3. Add an alarm two or three minutes ahead. Leave the tone on A Pocket of Bells and choose a 30 second rise.
+4. **Switch set to Ring, Jingle open.** Stay in Jingle. At the minute you should hear the tone and see the ringing screen, not only a banner.
+5. **Switch set to Ring, phone locked.** Leave Jingle and lock the phone. The lock screen should show Jingle’s alert and, when a next alarm is armed, the Live Activity. The bell tone plays. Open Jingle and tap **Dismiss**.
+6. **Switch set to Silent, phone locked.** Flip the Ring/Silent switch to silent, set another alarm a couple of minutes ahead, leave Jingle, and lock the phone. On iOS 26 with Alarms allowed, the tone still plays. Without Alarms, it still plays if Jingle was left running (not force-quit). Force-quit Jingle, set the switch to silent, and the locked notification stays quiet. That last case is the Ring/Silent switch, not a missing sound file.
+7. A one-time alarm turns off after dismiss. A repeating alarm stays armed for the next day.
 
 Home Screen widgets (small and medium) and Lock Screen widgets (rectangular and circular) show the next alarm. Add them from the widget gallery under Jingle.
 
@@ -89,12 +92,10 @@ swift test
 
 In Xcode you can also test the JingleCore package from the package navigator.
 
-The eight wake files in `Jingle/Sounds` are 28-second CAF recordings. Xcode copies them to the top of the app bundle, so notification sounds and in-app playback both open them by filename.
+The eight wake files in `Jingle/Sounds` are 28-second mono little-endian 16-bit CAF recordings. Xcode copies them to the top of the app bundle, so notification sounds, AlarmKit, and in-app playback all open them by filename. A big-endian payload, a `Sounds/` subfolder, or a name whose case does not match is rejected and the system default tone is used instead of a silent custom sound.
 
-## Optional later upgrades
+## Critical Alerts
 
-This build targets iOS 17 and does not request either of these.
+This build targets iOS 17. AlarmKit covers the silent switch on iOS 26 and does not need a special entitlement.
 
-**Critical Alerts.** Apple grants `com.apple.developer.usernotifications.critical-alerts` only after a separate approval. With that entitlement, a notification can play when the Ring/Silent switch is on silent and when Focus is on. Adding the entitlement before Apple approves it breaks signing, so it is not in `Jingle.entitlements`.
-
-**AlarmKit (iOS 26 and later).** [AlarmKit](https://developer.apple.com/documentation/alarmkit) lets an app schedule alarms that can break through silent mode and Focus, and show on the Lock Screen, in the Dynamic Island, in StandBy, and on a paired Apple Watch. Adopting it means raising the deployment target to iOS 26, adding `NSAlarmKitUsageDescription`, and calling `AlarmManager.requestAuthorization()` before scheduling. Keep the wake dismiss-only if you add it. This project does not link AlarmKit.
+**Critical Alerts** stay out of `Jingle.entitlements`. Apple grants `com.apple.developer.usernotifications.critical-alerts` only after a separate approval. Adding it before that approval breaks signing.

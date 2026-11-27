@@ -47,7 +47,7 @@ final class AlarmNotificationScheduler {
             content.categoryIdentifier = plan.categoryIdentifier
             content.threadIdentifier = AlarmNotificationIdentity.categoryIdentifier
             content.interruptionLevel = .timeSensitive
-            content.sound = sound(named: plan.soundName)
+            content.sound = BundledWakeSound.notificationSound(for: plan.soundName)
 
             var components = DateComponents()
             components.calendar = calendar
@@ -68,14 +68,5 @@ final class AlarmNotificationScheduler {
             let request = UNNotificationRequest(identifier: plan.identifier, content: content, trigger: trigger)
             try? await center.add(request)
         }
-    }
-
-    private func sound(named fileName: String) -> UNNotificationSound {
-        let stem = (fileName as NSString).deletingPathExtension
-        let ext = (fileName as NSString).pathExtension
-        if Bundle.main.url(forResource: stem, withExtension: ext) != nil {
-            return UNNotificationSound(named: UNNotificationSoundName(rawValue: fileName))
-        }
-        return .default
     }
 }

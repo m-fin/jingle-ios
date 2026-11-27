@@ -17,6 +17,8 @@
 		A10000000000000000000087 /* LiveActivityController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000000000000000000006C /* LiveActivityController.swift */; };
 		A10000000000000000000088 /* ProgressiveAudioEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000000000000000000006D /* ProgressiveAudioEngine.swift */; };
 		A10000000000000000000089 /* RingingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000000000000000000006E /* RingingView.swift */; };
+		A1000000000000000000008E /* JingleNotificationDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10000000000000000000073 /* JingleNotificationDelegate.swift */; };
+		A1000000000000000000008F /* SystemAlarmScheduler.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10000000000000000000074 /* SystemAlarmScheduler.swift */; };
 		A1000000000000000000008A /* DismissJingleAlarmIntent.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000000000000000000007E /* DismissJingleAlarmIntent.swift */; };
 		A1000000000000000000008B /* JingleAlarmAttributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000000000000000000007F /* JingleAlarmAttributes.swift */; };
 		A1000000000000000000008C /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = A10000000000000000000071 /* PrivacyInfo.xcprivacy */; };
@@ -77,6 +79,8 @@
 		A1000000000000000000006C /* LiveActivityController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveActivityController.swift; sourceTree = "<group>"; };
 		A1000000000000000000006D /* ProgressiveAudioEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressiveAudioEngine.swift; sourceTree = "<group>"; };
 		A1000000000000000000006E /* RingingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RingingView.swift; sourceTree = "<group>"; };
+		A10000000000000000000073 /* JingleNotificationDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JingleNotificationDelegate.swift; sourceTree = "<group>"; };
+		A10000000000000000000074 /* SystemAlarmScheduler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SystemAlarmScheduler.swift; sourceTree = "<group>"; };
 		A1000000000000000000006F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A10000000000000000000070 /* Jingle.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Jingle.entitlements; sourceTree = "<group>"; };
 		A10000000000000000000071 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
@@ -147,6 +151,8 @@
 				A10000000000000000000068 /* AlarmNotificationScheduler.swift */,
 				A10000000000000000000069 /* AlarmPermissionsManager.swift */,
 				A1000000000000000000006A /* JingleApp.swift */,
+				A10000000000000000000073 /* JingleNotificationDelegate.swift */,
+				A10000000000000000000074 /* SystemAlarmScheduler.swift */,
 				A1000000000000000000006B /* JingleTheme.swift */,
 				A1000000000000000000006C /* LiveActivityController.swift */,
 				A1000000000000000000006D /* ProgressiveAudioEngine.swift */,
@@ -326,6 +332,8 @@
 				A10000000000000000000087 /* LiveActivityController.swift in Sources */,
 				A10000000000000000000088 /* ProgressiveAudioEngine.swift in Sources */,
 				A10000000000000000000089 /* RingingView.swift in Sources */,
+				A1000000000000000000008E /* JingleNotificationDelegate.swift in Sources */,
+				A1000000000000000000008F /* SystemAlarmScheduler.swift in Sources */,
 				A1000000000000000000008A /* DismissJingleAlarmIntent.swift in Sources */,
 				A1000000000000000000008B /* JingleAlarmAttributes.swift in Sources */,
 			);

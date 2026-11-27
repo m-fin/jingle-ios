@@ -26,6 +26,7 @@ final class PermissionTests: XCTestCase {
             liveActivitiesOn: true
         ))
         XCTAssertEqual(denied.gaps, [.notifications])
+        XCTAssertEqual(denied.alarmKit, .unavailable)
         XCTAssertTrue(denied.showsSettingsBanner)
         XCTAssertEqual(denied.bannerMessage, "Notifications are off.")
         XCTAssertEqual(denied.ringSwitchNote, PermissionReadiness.ringSwitchNote)
@@ -78,6 +79,35 @@ final class PermissionTests: XCTestCase {
         ))
         XCTAssertEqual(readiness.gaps, [.notifications])
         XCTAssertTrue(readiness.showsSettingsBanner)
+    }
+
+    func testDeniedAlarmKitAsksForSettings() {
+        let readiness = PermissionReadinessEvaluator.evaluate(PermissionSignals(
+            authorization: .authorized,
+            soundOn: true,
+            timeSensitiveOn: true,
+            liveActivitiesOn: true,
+            alarmKit: .denied
+        ))
+        XCTAssertEqual(readiness.gaps, [.alarmKit])
+        XCTAssertTrue(readiness.showsSettingsBanner)
+        XCTAssertEqual(readiness.bannerMessage, "Alarm access is off.")
+        XCTAssertEqual(readiness.settingsButtonTitle, "Open Settings")
+        XCTAssertFalse(readiness.requestsPromptInsteadOfSettings)
+        XCTAssertEqual(readiness.ringSwitchNote, PermissionReadiness.ringSwitchNote)
+    }
+
+    func testUndecidedAlarmKitPromptsWithoutASettingsTrip() {
+        let readiness = PermissionReadinessEvaluator.evaluate(PermissionSignals(
+            authorization: .authorized,
+            soundOn: true,
+            timeSensitiveOn: true,
+            liveActivitiesOn: true,
+            alarmKit: .notDetermined
+        ))
+        XCTAssertEqual(readiness.gaps, [.alarmKit])
+        XCTAssertTrue(readiness.requestsPromptInsteadOfSettings)
+        XCTAssertEqual(readiness.settingsButtonTitle, "Allow Alarms")
     }
 
     func testLiveActivitiesAloneDoNotRaiseTheSettingsBanner() {

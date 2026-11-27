@@ -22,6 +22,7 @@ final class ProgressiveAudioEngine {
     private var volumeTimer: Timer?
     private var stopTimer: Timer?
     private var previewing = false
+    private var bedsidePlayer: AVAudioPlayer?
 
     /// Interruptions update playback state and leave the Live Activity alone.
     var onInterruption: ((PlaybackInterrupt) -> Void)?
@@ -38,8 +39,35 @@ final class ProgressiveAudioEngine {
     func playAlarm(tone: WakeTone, rampSeconds: Int, alarmID: String) {
         previewing = false
         stopTimer?.invalidate()
+        stopBedsidePlayer()
         playback = .ringing(alarmID: alarmID)
         start(tone: tone, rampSeconds: TimeInterval(rampSeconds))
+    }
+
+    /// Holds `.playback` while Jingle is backgrounded or the phone is locked and AlarmKit
+    /// is not armed. The file is inaudible. The session ignores the Ring/Silent switch,
+    /// and the clock timer can then start the real tone without waiting for a tap.
+    func startBedside() {
+        if bedsidePlayer?.isPlaying == true { return }
+        guard let url = Self.bedsideFileURL() else { return }
+        do {
+            try configureSession()
+            let player = try AVAudioPlayer(contentsOf: url)
+            player.numberOfLoops = -1
+            player.volume = 1
+            player.prepareToPlay()
+            player.play()
+            bedsidePlayer = player
+        } catch {
+            bedsidePlayer = nil
+        }
+    }
+
+    func stopBedside() {
+        stopBedsidePlayer()
+        if players.isEmpty, !previewing {
+            try? AVAudioSession.sharedInstance().setActive(false, options: [.notifyOthersOnDeactivation])
+        }
     }
 
     func playPreview(tone: WakeTone, rampSeconds: Int) {
@@ -169,6 +197,72 @@ final class ProgressiveAudioEngine {
         segmentStarted = nil
     }
 
+    private func stopBedsidePlayer() {
+        bedsidePlayer?.stop()
+        bedsidePlayer = nil
+    }
+
+    /// One second of mono little-endian PCM at amplitude 1. It keeps the playback
+    /// session alive and stays below what a person can hear.
+    private static func bedsideFileURL() -> URL? {
+        let url = FileManager.default.temporaryDirectory.appendingPathComponent("jingle-bedside.caf")
+        if FileManager.default.fileExists(atPath: url.path) {
+            return url
+        }
+        let frames = 8_000
+        var pcm = Data(capacity: frames * 2)
+        for index in 0..<frames {
+            let sample: Int16 = (index % 40 < 20) ? 1 : -1
+            let bits = UInt16(bitPattern: sample)
+            pcm.append(UInt8(bits & 0xFF))
+            pcm.append(UInt8(bits >> 8))
+        }
+        var file = Data()
+        func append(_ bytes: [UInt8]) { file.append(contentsOf: bytes) }
+        func appendUInt32(_ value: UInt32) {
+            append([
+                UInt8((value >> 24) & 0xFF),
+                UInt8((value >> 16) & 0xFF),
+                UInt8((value >> 8) & 0xFF),
+                UInt8(value & 0xFF),
+            ])
+        }
+        func appendUInt64(_ value: UInt64) {
+            append([
+                UInt8((value >> 56) & 0xFF),
+                UInt8((value >> 48) & 0xFF),
+                UInt8((value >> 40) & 0xFF),
+                UInt8((value >> 32) & 0xFF),
+                UInt8((value >> 24) & 0xFF),
+                UInt8((value >> 16) & 0xFF),
+                UInt8((value >> 8) & 0xFF),
+                UInt8(value & 0xFF),
+            ])
+        }
+        append([0x63, 0x61, 0x66, 0x66])
+        append([0x00, 0x01, 0x00, 0x00])
+        append([0x64, 0x65, 0x73, 0x63])
+        appendUInt64(32)
+        var rate = 8_000.0
+        append(withUnsafeBytes(of: &rate) { Array($0.reversed()) })
+        appendUInt32(0x6C70_636D)
+        appendUInt32(0x2)
+        appendUInt32(2)
+        appendUInt32(1)
+        appendUInt32(1)
+        appendUInt32(16)
+        append([0x64, 0x61, 0x74, 0x61])
+        appendUInt64(UInt64(4 + pcm.count))
+        appendUInt32(0)
+        file.append(pcm)
+        do {
+            try file.write(to: url, options: .atomic)
+            return url
+        } catch {
+            return nil
+        }
+    }
+
     private func tearDownPlayers() {
         volumeTimer?.invalidate()
         volumeTimer = nil
@@ -184,6 +278,7 @@ final class ProgressiveAudioEngine {
         stopTimer = nil
         segmentStarted = nil
         elapsedBeforePause = 0
+        stopBedsidePlayer()
         tearDownPlayers()
     }
 
@@ -205,6 +300,7 @@ final class ProgressiveAudioEngine {
             playback = AlarmPlaybackReducer.reduce(playback, event)
             freezeElapsed()
             players.forEach { $0.pause() }
+            bedsidePlayer?.pause()
             noteInterruption(event)
         case .ended:
             let optionsRaw = info[AVAudioSessionInterruptionOptionKey] as? UInt ?? 0
@@ -212,6 +308,10 @@ final class ProgressiveAudioEngine {
             let event = PlaybackInterrupt.ended(shouldResume: shouldResume)
             playback = AlarmPlaybackReducer.reduce(playback, event)
             noteInterruption(event)
+            if bedsidePlayer != nil {
+                try? AVAudioSession.sharedInstance().setActive(true)
+                bedsidePlayer?.play()
+            }
             guard playback.audioRunning, !playback.dismissed else { return }
             try? AVAudioSession.sharedInstance().setActive(true)
             segmentStarted = Date()

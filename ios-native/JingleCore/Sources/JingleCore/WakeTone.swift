@@ -1,7 +1,9 @@
 import Foundation
 
 /// Wake tones from *The Unstartled Morning* by Matthew Finley.
-/// Each file is a 28-second linear PCM CAF that iOS can play as a notification sound.
+/// Each file is a 28-second mono little-endian 16-bit PCM CAF. That is the encoding
+/// `UNNotificationSound` and AlarmKit can play. A big-endian payload tagged as
+/// little-endian shows a banner and stays silent.
 public struct WakeToneFile: Equatable, Sendable {
     public var tone: WakeTone
     public var title: String
