@@ -1,9 +1,11 @@
 import { AppState, Platform } from "react-native";
 import * as Notifications from "expo-notifications";
 
+import { wakeClipReady } from "./catalogPlayback";
 import type { NoticeSpec } from "./schedule";
 import { soundFile } from "./sounds";
 import { SOUND_LIST, MACHINE_SOUND } from "./sounds";
+import { resolveNotificationSound } from "./tone";
 import type { PermissionState } from "./types";
 
 export const ACTION_SNOOZE = "SNOOZE";
@@ -138,18 +140,30 @@ function triggerFor(spec: NoticeSpec): Notifications.NotificationTriggerInput {
   };
 }
 
+function notificationFile(spec: NoticeSpec): string {
+  const clipReady = Platform.OS === "ios" && spec.catalogFile !== null && wakeClipReady(spec.catalogFile);
+  return resolveNotificationSound({
+    sound: spec.sound,
+    catalogTrackId: spec.catalogFile?.replace(/^catalog-/, "").replace(/\.caf$/, "") ?? null,
+    clipReady,
+  });
+}
+
 async function applySchedule(specs: NoticeSpec[]): Promise<void> {
   if (Platform.OS === "web") return;
   await configureNotifications();
   await Notifications.cancelAllScheduledNotificationsAsync();
   for (const spec of specs) {
-    const file = soundFile(spec.sound);
+    // expo-notifications passes this filename to UNNotificationSound(named:).
+    // Bundled names live in the app. Catalog names are Library/Sounds/catalog-<id>.caf.
+    const file = notificationFile(spec);
     try {
       await Notifications.scheduleNotificationAsync({
         identifier: spec.identifier,
         content: {
           title: spec.title,
           body: spec.body,
+          subtitle: file.startsWith("catalog-") ? "Matthew Finley" : undefined,
           sound: file,
           interruptionLevel: spec.purpose === "machine" ? "active" : "timeSensitive",
           categoryIdentifier: spec.purpose === "machine" ? undefined : spec.snooze ? "jingle-snooze" : "jingle-up",

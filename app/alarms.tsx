@@ -3,7 +3,7 @@ import { Pressable, ScrollView, Text, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 import { Pill, pressCursor, Switch } from "@/components/ui";
-import { SOUNDS } from "@/src/lib/sounds";
+import { alarmToneName } from "@/src/lib/tone";
 import { formatClock, repeatLabel, sortAlarms } from "@/src/lib/time";
 import { useAlarms } from "@/src/state/alarms";
 import { useTheme } from "@/src/state/theme";
@@ -74,7 +74,7 @@ export default function AlarmsScreen() {
                     {formatClock(alarm.hour, alarm.minute)}
                   </Text>
                   <Text style={{ color: colors.muted, fontFamily: fonts.body, fontSize: 15, marginTop: 2 }}>
-                    {alarm.label}  ·  {repeatLabel(alarm.repeat)}  ·  {SOUNDS[alarm.sound].name}
+                    {alarm.label}  ·  {repeatLabel(alarm.repeat)}  ·  {alarmToneName(alarm)}
                   </Text>
                 </View>
                 <Switch label={`Toggle ${alarm.label}`} value={alarm.enabled} onValueChange={(enabled) => setEnabled(alarm.id, enabled)} />

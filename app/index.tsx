@@ -8,7 +8,7 @@ import { KeepAwake } from "@/components/KeepAwake";
 import { Pill, pressCursor } from "@/components/ui";
 import { dimScreen, restoreScreen } from "@/src/lib/bedside";
 import { haptic } from "@/src/lib/haptics";
-import { SOUNDS } from "@/src/lib/sounds";
+import { alarmToneName } from "@/src/lib/tone";
 import { BLANK_AFTER_MS } from "@/src/lib/types";
 import { clockParts, dateLines, formatClock, nextUp, relativeRing, repeatLabel } from "@/src/lib/time";
 import { useAlarms } from "@/src/state/alarms";
@@ -195,7 +195,7 @@ export default function ClockScreen() {
         </Text>
         <Text style={{ color: colors.muted, fontFamily: fonts.body, fontSize: 15, marginTop: 4 }}>
           {upcoming
-            ? `${upcoming.alarm.label}  ·  ${upcoming.kind === "snooze" ? "Snoozing" : repeatLabel(upcoming.alarm.repeat)}  ·  ${SOUNDS[upcoming.alarm.sound].name}`
+            ? `${upcoming.alarm.label}  ·  ${upcoming.kind === "snooze" ? "Snoozing" : repeatLabel(upcoming.alarm.repeat)}  ·  ${alarmToneName(upcoming.alarm)}`
             : "Add one when you want the morning."}
         </Text>
         {upcoming ? <Text style={{ color: colors.faint, fontFamily: fonts.medium, fontSize: 13, marginTop: 10 }}>{relativeRing(upcoming.when, now)}</Text> : null}

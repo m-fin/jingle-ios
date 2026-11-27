@@ -2,6 +2,7 @@ import { createContext, useContext, useEffect, useMemo, useRef, useState, type R
 import { router } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
 
+import { onCatalogReady } from "@/src/lib/catalogReady";
 import { playSound, stopSound } from "@/src/lib/playback";
 import { MACHINE_SOUND } from "@/src/lib/sounds";
 import { planNotifications } from "@/src/lib/schedule";
@@ -36,6 +37,7 @@ function defaultAlarm(): Alarm {
     repeat: [1, 2, 3, 4, 5],
     onceDate: null,
     sound: "dawn",
+    catalog: null,
     snoozeMinutes: 9,
     machineLeadMinutes: 0,
     enabled: true,
@@ -53,6 +55,7 @@ export function draftAlarm(now = new Date()): Alarm {
     repeat: [],
     onceDate: initialOnceDate(hour, 0, now),
     sound: "dawn",
+    catalog: null,
     snoozeMinutes: 9,
     machineLeadMinutes: 0,
     enabled: true,
@@ -181,6 +184,11 @@ export function AlarmsProvider({ children }: { children: ReactNode }) {
     if (!ready) return;
     reschedule(planNotifications(alarms, snoozes, new Date()));
   }, [ready, alarms, snoozes]);
+
+  useEffect(() => {
+    if (!ready) return;
+    return onCatalogReady(() => reschedule(planNotifications(alarmsRef.current, snoozesRef.current, new Date())));
+  }, [ready]);
 
   useEffect(() => {
     if (!ready) return;

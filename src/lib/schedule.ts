@@ -1,3 +1,4 @@
+import { catalogWakeFilename } from "./tone";
 import type { Alarm, Snooze, SoundId } from "./types";
 import { NOTIFICATION_BUDGET } from "./types";
 import { machineWeekly, nextOccurrence } from "./time";
@@ -18,8 +19,15 @@ export type NoticeSpec = {
   alarmId: string;
   purpose: NoticePurpose;
   snooze: boolean;
+  /** CAF filename for a downloaded catalog track. Null uses the bundled sound. */
+  catalogFile: string | null;
   trigger: NoticeTrigger;
 };
+
+function catalogSoundFile(alarm: Alarm): string | null {
+  if (!alarm.catalog) return null;
+  return catalogWakeFilename(alarm.catalog.trackId);
+}
 
 function alarmNotices(alarm: Alarm, now: Date): NoticeSpec[] {
   const title = alarm.label || "Jingle";
@@ -31,6 +39,7 @@ function alarmNotices(alarm: Alarm, now: Date): NoticeSpec[] {
     alarmId: alarm.id,
     purpose: "alarm" as const,
     snooze,
+    catalogFile: catalogSoundFile(alarm),
   };
   if (alarm.repeat.length === 0) {
     const when = nextOccurrence(alarm, now);
@@ -64,6 +73,7 @@ function machineNotices(alarm: Alarm, now: Date): NoticeSpec[] {
     alarmId: alarm.id,
     purpose: "machine" as const,
     snooze: false,
+    catalogFile: null,
   };
   if (alarm.repeat.length === 0) {
     const when = nextOccurrence(alarm, now);
@@ -109,6 +119,7 @@ export function planNotifications(alarms: Alarm[], snoozes: Snooze[], now: Date)
       alarmId: alarm.id,
       purpose: "snooze",
       snooze: alarm.snoozeMinutes > 0,
+      catalogFile: catalogSoundFile(alarm),
       trigger: { kind: "date", date: snooze.until },
     });
   }

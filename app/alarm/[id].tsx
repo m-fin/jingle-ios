@@ -3,10 +3,14 @@ import { useEffect, useState } from "react";
 import { Pressable, ScrollView, Text, TextInput, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
+import { CatalogTonePicker } from "@/components/CatalogTonePicker";
 import { Pill, pressCursor, Segment, StepButton } from "@/components/ui";
+import { mediaUrl, toCatalogTone, type CatalogTrack } from "@/src/lib/catalog";
+import { localCatalogAudioUri } from "@/src/lib/catalogPlayback";
 import { haptic } from "@/src/lib/haptics";
 import { playSound, stopSound } from "@/src/lib/playback";
 import { SOUND_LIST } from "@/src/lib/sounds";
+import { CATALOG_ARTIST } from "@/src/lib/tone";
 import type { Alarm, SoundId } from "@/src/lib/types";
 import { REPEAT_PRESETS, WEEKDAY_LETTERS, WEEKDAY_NAMES, repeatLabel, sameDays, to12, to24 } from "@/src/lib/time";
 import { draftAlarm, useAlarms } from "@/src/state/alarms";
@@ -26,13 +30,21 @@ export default function AlarmEditorScreen() {
   const existing = alarms.find((alarm) => alarm.id === id);
   const [draft, setDraft] = useState<Alarm | null>(null);
   const [confirmDelete, setConfirmDelete] = useState(false);
-  const [previewing, setPreviewing] = useState<SoundId | null>(null);
+  const [previewing, setPreviewing] = useState<string | null>(null);
+  const [toneTab, setToneTab] = useState<"jingle" | "catalog">("jingle");
+  const [tabSet, setTabSet] = useState(false);
 
   useEffect(() => {
     if (draft) return;
     if (isNew) setDraft(draftAlarm());
     else if (existing) setDraft({ ...existing });
   }, [draft, existing, isNew]);
+
+  useEffect(() => {
+    if (!draft || tabSet) return;
+    setToneTab(draft.catalog ? "catalog" : "jingle");
+    setTabSet(true);
+  }, [draft, tabSet]);
 
   useEffect(() => () => void stopSound(), []);
 
@@ -59,14 +71,30 @@ export default function AlarmEditorScreen() {
     setDraft({ ...draft, minute: wrapped });
   };
 
-  const preview = (sound: SoundId) => {
-    if (previewing === sound) {
+  const previewBundled = (sound: SoundId) => {
+    const key = `bundled:${sound}`;
+    if (previewing === key) {
       setPreviewing(null);
       void stopSound();
       return;
     }
-    setPreviewing(sound);
+    setPreviewing(key);
     void playSound(SOUND_LIST.find((item) => item.id === sound)?.source ?? SOUND_LIST[0].source, { volume: 0.85 });
+  };
+
+  const previewCatalog = (track: CatalogTrack) => {
+    const key = `catalog:${track.id}`;
+    if (previewing === key) {
+      setPreviewing(null);
+      void stopSound();
+      return;
+    }
+    const local = localCatalogAudioUri(track.id);
+    const remote = mediaUrl(track.audioPath);
+    const source = local ?? remote;
+    if (!source) return;
+    setPreviewing(key);
+    void playSound(source, { volume: 0.85, fadeMs: local ? 400 : 0 });
   };
 
   const save = () => {
@@ -211,43 +239,71 @@ export default function AlarmEditorScreen() {
         <Text style={{ color: colors.faint, fontFamily: fonts.body, fontSize: 14, marginTop: 8 }}>{repeatLabel(draft.repeat)}</Text>
 
         <Text style={{ color: colors.muted, fontFamily: fonts.medium, fontSize: 13, letterSpacing: 1.2, marginTop: 28 }}>SOUND</Text>
-        <View style={{ marginTop: 10, gap: 8 }}>
-          {SOUND_LIST.map((sound) => {
-            const selected = draft.sound === sound.id;
-            return (
-              <Pressable
-                key={sound.id}
-                accessibilityRole="button"
-                accessibilityState={{ selected }}
-                onPress={() => {
-                  void haptic("select");
-                  setDraft({ ...draft, sound: sound.id });
-                  preview(sound.id);
-                }}
-                style={[
-                  pressCursor,
-                  {
-                    minHeight: 56,
-                    borderRadius: 18,
-                    paddingHorizontal: 16,
-                    flexDirection: "row",
-                    alignItems: "center",
-                    justifyContent: "space-between",
-                    backgroundColor: colors.card,
-                    borderWidth: 1,
-                    borderColor: selected ? colors.orange : colors.cardBorder,
-                  },
-                ]}
-              >
-                <View>
-                  <Text style={{ color: colors.text, fontFamily: fonts.semibold, fontSize: 16 }}>{sound.name}</Text>
-                  <Text style={{ color: colors.muted, fontFamily: fonts.body, fontSize: 13, marginTop: 2 }}>{sound.detail}</Text>
-                </View>
-                <Text style={{ color: colors.orangeText, fontFamily: fonts.medium }}>{previewing === sound.id ? "Stop" : "Play"}</Text>
-              </Pressable>
-            );
-          })}
+        <View style={{ marginTop: 10 }}>
+          <Segment
+            value={toneTab}
+            onChange={(next) => {
+              setToneTab(next);
+              setPreviewing(null);
+              void stopSound();
+            }}
+            options={[
+              { label: "Jingle", value: "jingle" as const },
+              { label: "Catalog", value: "catalog" as const },
+            ]}
+          />
         </View>
+        {toneTab === "jingle" ? (
+          <View style={{ marginTop: 10, gap: 8 }}>
+            {SOUND_LIST.map((sound) => {
+              const selected = draft.catalog === null && draft.sound === sound.id;
+              return (
+                <Pressable
+                  key={sound.id}
+                  accessibilityRole="button"
+                  accessibilityState={{ selected }}
+                  onPress={() => {
+                    void haptic("select");
+                    setDraft({ ...draft, sound: sound.id, catalog: null });
+                    previewBundled(sound.id);
+                  }}
+                  style={[
+                    pressCursor,
+                    {
+                      minHeight: 56,
+                      borderRadius: 18,
+                      paddingHorizontal: 16,
+                      flexDirection: "row",
+                      alignItems: "center",
+                      justifyContent: "space-between",
+                      backgroundColor: colors.card,
+                      borderWidth: 1,
+                      borderColor: selected ? colors.orange : colors.cardBorder,
+                    },
+                  ]}
+                >
+                  <View>
+                    <Text style={{ color: colors.text, fontFamily: fonts.semibold, fontSize: 16 }}>{sound.name}</Text>
+                    <Text style={{ color: colors.muted, fontFamily: fonts.body, fontSize: 13, marginTop: 2 }}>{sound.detail}</Text>
+                  </View>
+                  <Text style={{ color: colors.orangeText, fontFamily: fonts.medium }}>{previewing === `bundled:${sound.id}` ? "Stop" : "Play"}</Text>
+                </Pressable>
+              );
+            })}
+          </View>
+        ) : (
+          <CatalogTonePicker
+            selectedId={draft.catalog?.trackId ?? null}
+            previewId={previewing?.startsWith("catalog:") ? previewing.slice("catalog:".length) : null}
+            onSelect={(track) => setDraft({ ...draft, catalog: toCatalogTone(track) })}
+            onPreview={previewCatalog}
+          />
+        )}
+        {draft.catalog ? (
+          <Text style={{ color: colors.faint, fontFamily: fonts.body, fontSize: 13, lineHeight: 18, marginTop: 8 }}>
+            {draft.catalog.title} · {CATALOG_ARTIST}. If the download isn’t ready, this alarm uses {SOUND_LIST.find((sound) => sound.id === draft.sound)?.name ?? "Dawn"}.
+          </Text>
+        ) : null}
 
         <Text style={{ color: colors.muted, fontFamily: fonts.medium, fontSize: 13, letterSpacing: 1.2, marginTop: 28 }}>SNOOZE</Text>
         <View style={{ marginTop: 10 }}>

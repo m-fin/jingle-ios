@@ -1,3 +1,4 @@
+import { sanitizeCatalogTone } from "./tone";
 import type { Alarm, Snooze } from "./types";
 
 export const WEEKDAY_NAMES = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"] as const;
@@ -182,10 +183,11 @@ export function sortAlarms(alarms: Alarm[]): Alarm[] {
 export function normalizeAlarm(alarm: Alarm, now: Date): Alarm {
   const repeat = [...new Set(alarm.repeat.filter((day) => day >= 0 && day <= 6))].sort((a, b) => a - b);
   const label = alarm.label.trim().slice(0, 40) || "Alarm";
+  const catalog = sanitizeCatalogTone(alarm.catalog);
   if (repeat.length > 0) {
-    return { ...alarm, label, repeat, onceDate: null };
+    return { ...alarm, label, repeat, onceDate: null, catalog };
   }
-  return { ...alarm, label, repeat: [], onceDate: initialOnceDate(alarm.hour, alarm.minute, now) };
+  return { ...alarm, label, repeat: [], onceDate: initialOnceDate(alarm.hour, alarm.minute, now), catalog };
 }
 
 export function expirePastOnce(alarms: Alarm[], now: Date): Alarm[] {
