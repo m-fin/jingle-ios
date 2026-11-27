@@ -13,11 +13,16 @@ final class AlarmController: NSObject, ObservableObject, UNUserNotificationCente
         PermissionSignals(authorization: .notDetermined, soundOn: false, timeSensitiveOn: false, liveActivitiesOn: false)
     )
     @Published var ringingAlarmID: String?
+    @Published var machineAlarmID: String?
     @Published var editor: EditorDraft?
+    @Published var showingSettings = false
     @Published var previewingTone: WakeTone?
+    @Published var previewingMachine = false
+    @Published var settings: BedsideSettings = .default
 
     let permissions = AlarmPermissionsManager()
     private let store = AlarmStore.appGroup()
+    private let settingsStore = BedsideSettingsStore.appGroup()
     private let scheduler = AlarmNotificationScheduler()
     private let engine = ProgressiveAudioEngine()
     private let liveActivities = LiveActivityController()
@@ -44,6 +49,7 @@ final class AlarmController: NSObject, ObservableObject, UNUserNotificationCente
         guard !didStart else { return }
         didStart = true
         library = AlarmLibrarySeeder.seedIfNeeded(store.load())
+        settings = settingsStore.load()
         store.save(library)
         scheduler.registerCategories()
         libraryObserver.onChange = { [weak self] in
@@ -128,13 +134,37 @@ final class AlarmController: NSObject, ObservableObject, UNUserNotificationCente
             stopPreview()
             return
         }
+        previewingMachine = false
         previewingTone = tone
         engine.playPreview(tone: tone, rampSeconds: rampSeconds)
     }
 
+    func previewMachine() {
+        if previewingMachine {
+            stopPreview()
+            return
+        }
+        previewingTone = nil
+        previewingMachine = true
+        engine.previewMachine()
+    }
+
     func stopPreview() {
         previewingTone = nil
+        previewingMachine = false
         engine.stopPreview()
+    }
+
+    func updateSettings(_ change: (inout BedsideSettings) -> Void) {
+        var next = settings
+        change(&next)
+        settings = next
+        settingsStore.save(next)
+    }
+
+    func stopMachine() {
+        machineAlarmID = nil
+        engine.stopMachine()
     }
 
     func dismissRinging() {
@@ -144,17 +174,38 @@ final class AlarmController: NSObject, ObservableObject, UNUserNotificationCente
         library.recordDismissal(alarmID: id, at: Date())
         Task { await scheduler.clearDelivered(for: id) }
         ringingAlarmID = nil
+        machineAlarmID = nil
         persistSchedule()
         UINotificationFeedbackGenerator().notificationOccurred(.success)
     }
 
     private func tick() {
         now = Date()
-        guard ringingAlarmID == nil, let upcoming else { return }
+        guard ringingAlarmID == nil, let upcoming else {
+            if ringingAlarmID == nil, machineAlarmID != nil, upcoming == nil {
+                stopMachine()
+            }
+            return
+        }
+        if upcoming.alarm.machineLeadMinutes > 0,
+           let start = MachineMode.leadDate(fireDate: upcoming.fireDate, leadMinutes: upcoming.alarm.machineLeadMinutes) {
+            let machineDelta = now.timeIntervalSince(start)
+            if machineDelta >= 0, now < upcoming.fireDate, machineAlarmID != upcoming.alarm.id {
+                beginMachine(alarmID: upcoming.alarm.id)
+            }
+        }
         let delta = now.timeIntervalSince(upcoming.fireDate)
         if delta >= 0, delta < 50 {
             beginRinging(alarmID: upcoming.alarm.id)
         }
+    }
+
+    private func beginMachine(alarmID: String) {
+        guard library.alarms.contains(where: { $0.id == alarmID }) else { return }
+        if ringingAlarmID != nil { return }
+        stopPreview()
+        machineAlarmID = alarmID
+        engine.playMachine()
     }
 
     private func beginRinging(alarmID: String) {
@@ -162,6 +213,7 @@ final class AlarmController: NSObject, ObservableObject, UNUserNotificationCente
         if ringingAlarmID == alarmID { return }
         stopPreview()
         ringingAlarmID = alarmID
+        machineAlarmID = alarmID
         UIApplication.shared.isIdleTimerDisabled = true
         engine.playAlarm(tone: alarm.tone, rampSeconds: alarm.progressiveRampSeconds, alarmID: alarmID)
         Task {
@@ -209,14 +261,22 @@ final class AlarmController: NSObject, ObservableObject, UNUserNotificationCente
         willPresent notification: UNNotification,
         withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void
     ) {
-        if let alarmID = AlarmNotificationIdentity.alarmID(from: notification.request.identifier) {
-            beginRinging(alarmID: alarmID)
+        let identifier = notification.request.identifier
+        if let alarmID = AlarmNotificationIdentity.alarmID(from: identifier) {
+            if AlarmNotificationIdentity.purpose(from: identifier) == .machine {
+                beginMachine(alarmID: alarmID)
+            } else {
+                beginRinging(alarmID: alarmID)
+            }
         }
+        let presentation = AlarmNotificationIdentity.purpose(from: identifier) == .machine
+            ? AlarmNotificationPlanner.machineForegroundPresentation
+            : AlarmNotificationPlanner.foregroundPresentation
         var options: UNNotificationPresentationOptions = []
-        if AlarmNotificationPlanner.foregroundPresentation.includesAlert {
+        if presentation.includesAlert {
             options.insert(.alert)
         }
-        if AlarmNotificationPlanner.foregroundPresentation.includesSound {
+        if presentation.includesSound {
             options.insert(.sound)
         }
         completionHandler(options)
@@ -228,13 +288,21 @@ final class AlarmController: NSObject, ObservableObject, UNUserNotificationCente
         withCompletionHandler completionHandler: @escaping () -> Void
     ) {
         defer { completionHandler() }
-        guard let alarmID = AlarmNotificationIdentity.alarmID(from: response.notification.request.identifier) else {
+        let identifier = response.notification.request.identifier
+        guard let alarmID = AlarmNotificationIdentity.alarmID(from: identifier) else {
             return
         }
+        let isMachine = AlarmNotificationIdentity.purpose(from: identifier) == .machine
         if response.actionIdentifier == AlarmNotificationIdentity.dismissActionIdentifier
             || response.actionIdentifier == UNNotificationDismissActionIdentifier {
-            ringingAlarmID = alarmID
-            dismissRinging()
+            if isMachine {
+                stopMachine()
+            } else {
+                ringingAlarmID = alarmID
+                dismissRinging()
+            }
+        } else if isMachine {
+            beginMachine(alarmID: alarmID)
         } else {
             beginRinging(alarmID: alarmID)
         }

@@ -3,61 +3,65 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 56;
+	objectVersion = 77;
 	objects = {
 
 /* Begin PBXBuildFile section */
-		A10000000000000000000080 /* AlarmController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10000000000000000000065 /* AlarmController.swift */; };
-		A10000000000000000000081 /* AlarmEditorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10000000000000000000066 /* AlarmEditorView.swift */; };
-		A10000000000000000000082 /* AlarmHomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10000000000000000000067 /* AlarmHomeView.swift */; };
-		A10000000000000000000083 /* AlarmNotificationScheduler.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10000000000000000000068 /* AlarmNotificationScheduler.swift */; };
-		A10000000000000000000084 /* AlarmPermissionsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10000000000000000000069 /* AlarmPermissionsManager.swift */; };
-		A10000000000000000000085 /* JingleApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000000000000000000006A /* JingleApp.swift */; };
-		A10000000000000000000086 /* JingleTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000000000000000000006B /* JingleTheme.swift */; };
-		A10000000000000000000087 /* LiveActivityController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000000000000000000006C /* LiveActivityController.swift */; };
-		A10000000000000000000088 /* ProgressiveAudioEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000000000000000000006D /* ProgressiveAudioEngine.swift */; };
-		A10000000000000000000089 /* RingingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000000000000000000006E /* RingingView.swift */; };
-		A1000000000000000000008A /* DismissJingleAlarmIntent.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000000000000000000007E /* DismissJingleAlarmIntent.swift */; };
-		A1000000000000000000008B /* JingleAlarmAttributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000000000000000000007F /* JingleAlarmAttributes.swift */; };
-		A1000000000000000000008C /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = A10000000000000000000071 /* PrivacyInfo.xcprivacy */; };
-		A1000000000000000000008D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A10000000000000000000072 /* Assets.xcassets */; };
-		A100000000000000000000C1 /* 01-a-pocket-of-bells.caf in Resources */ = {isa = PBXBuildFile; fileRef = A100000000000000000000B1 /* 01-a-pocket-of-bells.caf */; };
-		A100000000000000000000C2 /* 02-keys-in-the-amber.caf in Resources */ = {isa = PBXBuildFile; fileRef = A100000000000000000000B2 /* 02-keys-in-the-amber.caf */; };
-		A100000000000000000000C3 /* 03-brass-under-linen.caf in Resources */ = {isa = PBXBuildFile; fileRef = A100000000000000000000B3 /* 03-brass-under-linen.caf */; };
-		A100000000000000000000C4 /* 04-brush-against-the-block.caf in Resources */ = {isa = PBXBuildFile; fileRef = A100000000000000000000B4 /* 04-brush-against-the-block.caf */; };
-		A100000000000000000000C5 /* 05-fifth-along-the-floor.caf in Resources */ = {isa = PBXBuildFile; fileRef = A100000000000000000000B5 /* 05-fifth-along-the-floor.caf */; };
-		A100000000000000000000C6 /* 06-harmonics-on-the-sill.caf in Resources */ = {isa = PBXBuildFile; fileRef = A100000000000000000000B6 /* 06-harmonics-on-the-sill.caf */; };
-		A100000000000000000000C7 /* 07-loose-bells-slow-cadence.caf in Resources */ = {isa = PBXBuildFile; fileRef = A100000000000000000000B7 /* 07-loose-bells-slow-cadence.caf */; };
-		A100000000000000000000C8 /* 08-the-low-bloom.caf in Resources */ = {isa = PBXBuildFile; fileRef = A100000000000000000000B8 /* 08-the-low-bloom.caf */; };
-		A10000000000000000000093 /* JingleLiveActivityWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10000000000000000000078 /* JingleLiveActivityWidget.swift */; };
-		A10000000000000000000094 /* JingleWidgetsBundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10000000000000000000079 /* JingleWidgetsBundle.swift */; };
-		A10000000000000000000095 /* NextAlarmWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000000000000000000007A /* NextAlarmWidget.swift */; };
-		A10000000000000000000096 /* DismissJingleAlarmIntent.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000000000000000000007E /* DismissJingleAlarmIntent.swift */; };
-		A10000000000000000000097 /* JingleAlarmAttributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000000000000000000007F /* JingleAlarmAttributes.swift */; };
-		A10000000000000000000098 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = A1000000000000000000007D /* PrivacyInfo.xcprivacy */; };
-		A10000000000000000000022 /* JingleCore in Frameworks */ = {isa = PBXBuildFile; productRef = A10000000000000000000014 /* JingleCore */; };
-		A10000000000000000000023 /* JingleCore in Frameworks */ = {isa = PBXBuildFile; productRef = A10000000000000000000015 /* JingleCore */; };
-		A10000000000000000000021 /* JingleWidgets.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = A10000000000000000000020 /* JingleWidgets.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		0E555EDD005927ABB576F1BE /* JingleAlarmAttributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = BABD367101276D9E5CF55C47 /* JingleAlarmAttributes.swift */; };
+		1B621B62DA34821F59044229 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 25C17F59C3EC7E716633797B /* Assets.xcassets */; };
+		1EBD31497EC5FFAAF592728B /* JingleWidgets.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 1F74818A34E6C46972383CEC /* JingleWidgets.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		245D850189F56F532F87D268 /* AlarmPermissionsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBAB5FAA79C1B5324FF74DD5 /* AlarmPermissionsManager.swift */; };
+		28F6AC985CB12033890A6B65 /* BedsideDisplay.swift in Sources */ = {isa = PBXBuildFile; fileRef = E86AF8FE2EBFCD1047D43808 /* BedsideDisplay.swift */; };
+		4854E41A0873BBA5FEBFA6AF /* JingleLiveActivityWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3800621F69C5D81D896984DC /* JingleLiveActivityWidget.swift */; };
+		4E073B3899E78A71570E7812 /* JingleAlarmAttributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = BABD367101276D9E5CF55C47 /* JingleAlarmAttributes.swift */; };
+		4E8DAD10A3884720A143320A /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = B802668501ACB3A9E3FB86CF /* PrivacyInfo.xcprivacy */; };
+		53DE8A2C67BCECC031489F50 /* LiveActivityController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A441DF9C723E4316BE09255 /* LiveActivityController.swift */; };
+		59651A9E84645D1A0A4F1271 /* 01-a-pocket-of-bells.caf in Resources */ = {isa = PBXBuildFile; fileRef = C16F26E8A70E22B26DF9C361 /* 01-a-pocket-of-bells.caf */; };
+		5DF0CAA8BC68375B27CBB54B /* JingleCore in Frameworks */ = {isa = PBXBuildFile; productRef = 1B7878D8C7423C2EBA3C69DC /* JingleCore */; };
+		6F7D8C1DCE8F1EE32D52EACA /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = C61572B24988B6AEB2650F90 /* PrivacyInfo.xcprivacy */; };
+		77DD0DB67E2EDA8BC331CB2E /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF6F91719FEF4942251D5F11 /* SettingsView.swift */; };
+		791E7CA8B4AE43C49EEC071C /* AlarmHomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBABB48B22EF1F89C8FCFF63 /* AlarmHomeView.swift */; };
+		7B8DCEE35C81A8BC939DA682 /* JingleWidgetsBundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDF12DA4292A9DFE6FBBCB75 /* JingleWidgetsBundle.swift */; };
+		7E37632DCB21458918ED3EFB /* RingingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C13131E7D9E5FCFE0A0906E6 /* RingingView.swift */; };
+		7F847C89645BDA6836350379 /* 03-brass-under-linen.caf in Resources */ = {isa = PBXBuildFile; fileRef = D0FFF0FC1B57B994BF18AEE5 /* 03-brass-under-linen.caf */; };
+		84BF84AECBD716C1372ADEFE /* ProgressiveAudioEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1D64C046C963C1A505C3183 /* ProgressiveAudioEngine.swift */; };
+		89D5FE7D1C04ACB036555147 /* AlarmNotificationScheduler.swift in Sources */ = {isa = PBXBuildFile; fileRef = F870B4381375BE0E0E27FDA0 /* AlarmNotificationScheduler.swift */; };
+		8ECBEBE45B1322DF1F6D0478 /* 04-brush-against-the-block.caf in Resources */ = {isa = PBXBuildFile; fileRef = 985C9EFD295280811A4085B8 /* 04-brush-against-the-block.caf */; };
+		913F8CDEA476A1C50548177B /* machine-mode.caf in Resources */ = {isa = PBXBuildFile; fileRef = 79092E71FC6E13CCECB4BE85 /* machine-mode.caf */; };
+		96C0ADE9D9CAA54251CE5815 /* 05-fifth-along-the-floor.caf in Resources */ = {isa = PBXBuildFile; fileRef = C6F2DB2417796BC80F713233 /* 05-fifth-along-the-floor.caf */; };
+		A2750CD6670154D969720C13 /* 02-keys-in-the-amber.caf in Resources */ = {isa = PBXBuildFile; fileRef = 435A1D927C6B8FDBEDE97121 /* 02-keys-in-the-amber.caf */; };
+		B5DBBCFBFB664902A64D372F /* 06-harmonics-on-the-sill.caf in Resources */ = {isa = PBXBuildFile; fileRef = 5B2C89D944A49DB88BA081BA /* 06-harmonics-on-the-sill.caf */; };
+		B90975999B34B27C1DE1102F /* JingleCore in Frameworks */ = {isa = PBXBuildFile; productRef = 7063B8696D32988BC5F33798 /* JingleCore */; };
+		CCD7EA59D6CECF7EBCABA0B8 /* JingleTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9C9861DCA3FC656C440514D /* JingleTheme.swift */; };
+		CECCA823BCEE6236C639E7A0 /* JingleApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4D1AB44974CF455EBC9245D /* JingleApp.swift */; };
+		CF0860BC7048E48AB95B09C7 /* 08-the-low-bloom.caf in Resources */ = {isa = PBXBuildFile; fileRef = 640724B4355D63339DD62792 /* 08-the-low-bloom.caf */; };
+		D24BEC66DD94E53DAD8D2036 /* PrivacyPolicyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB459F9074C00E552ADAE48 /* PrivacyPolicyView.swift */; };
+		D38A5F1A580B60506A8F617F /* DismissJingleAlarmIntent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 211B891AAFCD678667F24B0B /* DismissJingleAlarmIntent.swift */; };
+		D84D1E1FAB91CF6DF1B4178A /* NextAlarmWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE71E0E032DDBF6D2CD5B9E4 /* NextAlarmWidget.swift */; };
+		D893B9791E2A38FCF86743A8 /* AlarmController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 681670AE20BCECFAB7C17D28 /* AlarmController.swift */; };
+		DAB7287FE5133FE58C348786 /* 07-loose-bells-slow-cadence.caf in Resources */ = {isa = PBXBuildFile; fileRef = 9C472D696BBE3E9DF9B401C9 /* 07-loose-bells-slow-cadence.caf */; };
+		E5D6D3BF70C8698F2EAC63BC /* AlarmEditorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC18A063A618E4FD92DC4A1F /* AlarmEditorView.swift */; };
+		FD8D27389C31619E8F5FD7AC /* DismissJingleAlarmIntent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 211B891AAFCD678667F24B0B /* DismissJingleAlarmIntent.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		A10000000000000000000011 /* PBXContainerItemProxy */ = {
+		2143FCA7CB206C5B2591C06B /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = A10000000000000000000001 /* Project object */;
+			containerPortal = 77A568E64381EEDE955DA2F6 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = A10000000000000000000009;
+			remoteGlobalIDString = C0DCE4ABF8DD4C7CC62500F0;
 			remoteInfo = JingleWidgets;
 		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		A10000000000000000000010 /* Embed Foundation Extensions */ = {
+		434CB6DED7DBE4A3A524FA20 /* Embed Foundation Extensions */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
-				A10000000000000000000021 /* JingleWidgets.appex in Embed Foundation Extensions */,
+				1EBD31497EC5FFAAF592728B /* JingleWidgets.appex in Embed Foundation Extensions */,
 			);
 			name = "Embed Foundation Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -65,170 +69,180 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		A1000000000000000000001F /* Jingle.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Jingle.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		A10000000000000000000020 /* JingleWidgets.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = JingleWidgets.appex; sourceTree = BUILT_PRODUCTS_DIR; };
-		A10000000000000000000065 /* AlarmController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmController.swift; sourceTree = "<group>"; };
-		A10000000000000000000066 /* AlarmEditorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmEditorView.swift; sourceTree = "<group>"; };
-		A10000000000000000000067 /* AlarmHomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmHomeView.swift; sourceTree = "<group>"; };
-		A10000000000000000000068 /* AlarmNotificationScheduler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmNotificationScheduler.swift; sourceTree = "<group>"; };
-		A10000000000000000000069 /* AlarmPermissionsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmPermissionsManager.swift; sourceTree = "<group>"; };
-		A1000000000000000000006A /* JingleApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JingleApp.swift; sourceTree = "<group>"; };
-		A1000000000000000000006B /* JingleTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JingleTheme.swift; sourceTree = "<group>"; };
-		A1000000000000000000006C /* LiveActivityController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveActivityController.swift; sourceTree = "<group>"; };
-		A1000000000000000000006D /* ProgressiveAudioEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressiveAudioEngine.swift; sourceTree = "<group>"; };
-		A1000000000000000000006E /* RingingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RingingView.swift; sourceTree = "<group>"; };
-		A1000000000000000000006F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		A10000000000000000000070 /* Jingle.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Jingle.entitlements; sourceTree = "<group>"; };
-		A10000000000000000000071 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
-		A10000000000000000000072 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		A100000000000000000000B1 /* 01-a-pocket-of-bells.caf */ = {isa = PBXFileReference; lastKnownFileType = file.caf; path = "01-a-pocket-of-bells.caf"; sourceTree = "<group>"; };
-		A100000000000000000000B2 /* 02-keys-in-the-amber.caf */ = {isa = PBXFileReference; lastKnownFileType = file.caf; path = "02-keys-in-the-amber.caf"; sourceTree = "<group>"; };
-		A100000000000000000000B3 /* 03-brass-under-linen.caf */ = {isa = PBXFileReference; lastKnownFileType = file.caf; path = "03-brass-under-linen.caf"; sourceTree = "<group>"; };
-		A100000000000000000000B4 /* 04-brush-against-the-block.caf */ = {isa = PBXFileReference; lastKnownFileType = file.caf; path = "04-brush-against-the-block.caf"; sourceTree = "<group>"; };
-		A100000000000000000000B5 /* 05-fifth-along-the-floor.caf */ = {isa = PBXFileReference; lastKnownFileType = file.caf; path = "05-fifth-along-the-floor.caf"; sourceTree = "<group>"; };
-		A100000000000000000000B6 /* 06-harmonics-on-the-sill.caf */ = {isa = PBXFileReference; lastKnownFileType = file.caf; path = "06-harmonics-on-the-sill.caf"; sourceTree = "<group>"; };
-		A100000000000000000000B7 /* 07-loose-bells-slow-cadence.caf */ = {isa = PBXFileReference; lastKnownFileType = file.caf; path = "07-loose-bells-slow-cadence.caf"; sourceTree = "<group>"; };
-		A100000000000000000000B8 /* 08-the-low-bloom.caf */ = {isa = PBXFileReference; lastKnownFileType = file.caf; path = "08-the-low-bloom.caf"; sourceTree = "<group>"; };
-		A10000000000000000000078 /* JingleLiveActivityWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JingleLiveActivityWidget.swift; sourceTree = "<group>"; };
-		A10000000000000000000079 /* JingleWidgetsBundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JingleWidgetsBundle.swift; sourceTree = "<group>"; };
-		A1000000000000000000007A /* NextAlarmWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NextAlarmWidget.swift; sourceTree = "<group>"; };
-		A1000000000000000000007B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		A1000000000000000000007C /* JingleWidgets.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = JingleWidgets.entitlements; sourceTree = "<group>"; };
-		A1000000000000000000007D /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
-		A1000000000000000000007E /* DismissJingleAlarmIntent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DismissJingleAlarmIntent.swift; sourceTree = "<group>"; };
-		A1000000000000000000007F /* JingleAlarmAttributes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JingleAlarmAttributes.swift; sourceTree = "<group>"; };
+		1F74818A34E6C46972383CEC /* JingleWidgets.appex */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = "wrapper.app-extension"; path = JingleWidgets.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		211B891AAFCD678667F24B0B /* DismissJingleAlarmIntent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DismissJingleAlarmIntent.swift; sourceTree = "<group>"; };
+		25C17F59C3EC7E716633797B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		3800621F69C5D81D896984DC /* JingleLiveActivityWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JingleLiveActivityWidget.swift; sourceTree = "<group>"; };
+		3A441DF9C723E4316BE09255 /* LiveActivityController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveActivityController.swift; sourceTree = "<group>"; };
+		435A1D927C6B8FDBEDE97121 /* 02-keys-in-the-amber.caf */ = {isa = PBXFileReference; path = "02-keys-in-the-amber.caf"; sourceTree = "<group>"; };
+		5B2C89D944A49DB88BA081BA /* 06-harmonics-on-the-sill.caf */ = {isa = PBXFileReference; path = "06-harmonics-on-the-sill.caf"; sourceTree = "<group>"; };
+		640724B4355D63339DD62792 /* 08-the-low-bloom.caf */ = {isa = PBXFileReference; path = "08-the-low-bloom.caf"; sourceTree = "<group>"; };
+		6475FA1491155A8EEF84B270 /* JingleCore */ = {isa = PBXFileReference; lastKnownFileType = folder; name = JingleCore; path = JingleCore; sourceTree = SOURCE_ROOT; };
+		681670AE20BCECFAB7C17D28 /* AlarmController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmController.swift; sourceTree = "<group>"; };
+		79092E71FC6E13CCECB4BE85 /* machine-mode.caf */ = {isa = PBXFileReference; path = "machine-mode.caf"; sourceTree = "<group>"; };
+		985C9EFD295280811A4085B8 /* 04-brush-against-the-block.caf */ = {isa = PBXFileReference; path = "04-brush-against-the-block.caf"; sourceTree = "<group>"; };
+		9C472D696BBE3E9DF9B401C9 /* 07-loose-bells-slow-cadence.caf */ = {isa = PBXFileReference; path = "07-loose-bells-slow-cadence.caf"; sourceTree = "<group>"; };
+		B802668501ACB3A9E3FB86CF /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
+		BABD367101276D9E5CF55C47 /* JingleAlarmAttributes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JingleAlarmAttributes.swift; sourceTree = "<group>"; };
+		BF6F91719FEF4942251D5F11 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		C13131E7D9E5FCFE0A0906E6 /* RingingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RingingView.swift; sourceTree = "<group>"; };
+		C16F26E8A70E22B26DF9C361 /* 01-a-pocket-of-bells.caf */ = {isa = PBXFileReference; path = "01-a-pocket-of-bells.caf"; sourceTree = "<group>"; };
+		C4D1AB44974CF455EBC9245D /* JingleApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JingleApp.swift; sourceTree = "<group>"; };
+		C61572B24988B6AEB2650F90 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
+		C6F2DB2417796BC80F713233 /* 05-fifth-along-the-floor.caf */ = {isa = PBXFileReference; path = "05-fifth-along-the-floor.caf"; sourceTree = "<group>"; };
+		CC18A063A618E4FD92DC4A1F /* AlarmEditorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmEditorView.swift; sourceTree = "<group>"; };
+		D0FFF0FC1B57B994BF18AEE5 /* 03-brass-under-linen.caf */ = {isa = PBXFileReference; path = "03-brass-under-linen.caf"; sourceTree = "<group>"; };
+		D1D64C046C963C1A505C3183 /* ProgressiveAudioEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressiveAudioEngine.swift; sourceTree = "<group>"; };
+		D9C9861DCA3FC656C440514D /* JingleTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JingleTheme.swift; sourceTree = "<group>"; };
+		DE71E0E032DDBF6D2CD5B9E4 /* NextAlarmWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NextAlarmWidget.swift; sourceTree = "<group>"; };
+		E86AF8FE2EBFCD1047D43808 /* BedsideDisplay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BedsideDisplay.swift; sourceTree = "<group>"; };
+		EDF12DA4292A9DFE6FBBCB75 /* JingleWidgetsBundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JingleWidgetsBundle.swift; sourceTree = "<group>"; };
+		F870B4381375BE0E0E27FDA0 /* AlarmNotificationScheduler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmNotificationScheduler.swift; sourceTree = "<group>"; };
+		F9CD73A6784BE61A1AF32E77 /* Jingle.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = Jingle.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		FAB459F9074C00E552ADAE48 /* PrivacyPolicyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivacyPolicyView.swift; sourceTree = "<group>"; };
+		FBAB5FAA79C1B5324FF74DD5 /* AlarmPermissionsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmPermissionsManager.swift; sourceTree = "<group>"; };
+		FBABB48B22EF1F89C8FCFF63 /* AlarmHomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmHomeView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		A1000000000000000000000C /* Frameworks */ = {
+		29B2DC458BB8F00CC2092FBF /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A10000000000000000000022 /* JingleCore in Frameworks */,
+				B90975999B34B27C1DE1102F /* JingleCore in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		A1000000000000000000000F /* Frameworks */ = {
+		319320F92800DB784C83CCD7 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A10000000000000000000023 /* JingleCore in Frameworks */,
+				5DF0CAA8BC68375B27CBB54B /* JingleCore in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		A10000000000000000000002 = {
+		53A2E15A03FCF7C40D23C329 /* Packages */ = {
 			isa = PBXGroup;
 			children = (
-				A10000000000000000000004 /* Jingle */,
-				A10000000000000000000005 /* JingleWidgets */,
-				A10000000000000000000006 /* Shared */,
-				A10000000000000000000003 /* Products */,
+				6475FA1491155A8EEF84B270 /* JingleCore */,
 			);
+			name = Packages;
 			sourceTree = "<group>";
 		};
-		A10000000000000000000003 /* Products */ = {
+		6D42605EF85776590A523968 /* Jingle */ = {
 			isa = PBXGroup;
 			children = (
-				A1000000000000000000001F /* Jingle.app */,
-				A10000000000000000000020 /* JingleWidgets.appex */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
-		A10000000000000000000004 /* Jingle */ = {
-			isa = PBXGroup;
-			children = (
-				A10000000000000000000065 /* AlarmController.swift */,
-				A10000000000000000000066 /* AlarmEditorView.swift */,
-				A10000000000000000000067 /* AlarmHomeView.swift */,
-				A10000000000000000000068 /* AlarmNotificationScheduler.swift */,
-				A10000000000000000000069 /* AlarmPermissionsManager.swift */,
-				A1000000000000000000006A /* JingleApp.swift */,
-				A1000000000000000000006B /* JingleTheme.swift */,
-				A1000000000000000000006C /* LiveActivityController.swift */,
-				A1000000000000000000006D /* ProgressiveAudioEngine.swift */,
-				A1000000000000000000006E /* RingingView.swift */,
-				A1000000000000000000006F /* Info.plist */,
-				A10000000000000000000070 /* Jingle.entitlements */,
-				A10000000000000000000071 /* PrivacyInfo.xcprivacy */,
-				A10000000000000000000072 /* Assets.xcassets */,
-				A10000000000000000000007 /* Sounds */,
+				B9EF00F920D5FBFAFC19C2C8 /* Sounds */,
+				681670AE20BCECFAB7C17D28 /* AlarmController.swift */,
+				CC18A063A618E4FD92DC4A1F /* AlarmEditorView.swift */,
+				FBABB48B22EF1F89C8FCFF63 /* AlarmHomeView.swift */,
+				F870B4381375BE0E0E27FDA0 /* AlarmNotificationScheduler.swift */,
+				FBAB5FAA79C1B5324FF74DD5 /* AlarmPermissionsManager.swift */,
+				25C17F59C3EC7E716633797B /* Assets.xcassets */,
+				E86AF8FE2EBFCD1047D43808 /* BedsideDisplay.swift */,
+				C4D1AB44974CF455EBC9245D /* JingleApp.swift */,
+				D9C9861DCA3FC656C440514D /* JingleTheme.swift */,
+				3A441DF9C723E4316BE09255 /* LiveActivityController.swift */,
+				B802668501ACB3A9E3FB86CF /* PrivacyInfo.xcprivacy */,
+				FAB459F9074C00E552ADAE48 /* PrivacyPolicyView.swift */,
+				D1D64C046C963C1A505C3183 /* ProgressiveAudioEngine.swift */,
+				C13131E7D9E5FCFE0A0906E6 /* RingingView.swift */,
+				BF6F91719FEF4942251D5F11 /* SettingsView.swift */,
 			);
 			path = Jingle;
 			sourceTree = "<group>";
 		};
-		A10000000000000000000007 /* Sounds */ = {
+		7ED7812F6CCEAAF8011FCC35 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				A100000000000000000000B1 /* 01-a-pocket-of-bells.caf */,
-				A100000000000000000000B2 /* 02-keys-in-the-amber.caf */,
-				A100000000000000000000B3 /* 03-brass-under-linen.caf */,
-				A100000000000000000000B4 /* 04-brush-against-the-block.caf */,
-				A100000000000000000000B5 /* 05-fifth-along-the-floor.caf */,
-				A100000000000000000000B6 /* 06-harmonics-on-the-sill.caf */,
-				A100000000000000000000B7 /* 07-loose-bells-slow-cadence.caf */,
-				A100000000000000000000B8 /* 08-the-low-bloom.caf */,
+				F9CD73A6784BE61A1AF32E77 /* Jingle.app */,
+				1F74818A34E6C46972383CEC /* JingleWidgets.appex */,
 			);
-			path = Sounds;
+			name = Products;
 			sourceTree = "<group>";
 		};
-		A10000000000000000000005 /* JingleWidgets */ = {
+		9291143FE4D57AF3627F14B4 /* JingleWidgets */ = {
 			isa = PBXGroup;
 			children = (
-				A10000000000000000000078 /* JingleLiveActivityWidget.swift */,
-				A10000000000000000000079 /* JingleWidgetsBundle.swift */,
-				A1000000000000000000007A /* NextAlarmWidget.swift */,
-				A1000000000000000000007B /* Info.plist */,
-				A1000000000000000000007C /* JingleWidgets.entitlements */,
-				A1000000000000000000007D /* PrivacyInfo.xcprivacy */,
+				3800621F69C5D81D896984DC /* JingleLiveActivityWidget.swift */,
+				EDF12DA4292A9DFE6FBBCB75 /* JingleWidgetsBundle.swift */,
+				DE71E0E032DDBF6D2CD5B9E4 /* NextAlarmWidget.swift */,
+				C61572B24988B6AEB2650F90 /* PrivacyInfo.xcprivacy */,
 			);
 			path = JingleWidgets;
 			sourceTree = "<group>";
 		};
-		A10000000000000000000006 /* Shared */ = {
+		B9EF00F920D5FBFAFC19C2C8 /* Sounds */ = {
 			isa = PBXGroup;
 			children = (
-				A1000000000000000000007E /* DismissJingleAlarmIntent.swift */,
-				A1000000000000000000007F /* JingleAlarmAttributes.swift */,
+				C16F26E8A70E22B26DF9C361 /* 01-a-pocket-of-bells.caf */,
+				435A1D927C6B8FDBEDE97121 /* 02-keys-in-the-amber.caf */,
+				D0FFF0FC1B57B994BF18AEE5 /* 03-brass-under-linen.caf */,
+				985C9EFD295280811A4085B8 /* 04-brush-against-the-block.caf */,
+				C6F2DB2417796BC80F713233 /* 05-fifth-along-the-floor.caf */,
+				5B2C89D944A49DB88BA081BA /* 06-harmonics-on-the-sill.caf */,
+				9C472D696BBE3E9DF9B401C9 /* 07-loose-bells-slow-cadence.caf */,
+				640724B4355D63339DD62792 /* 08-the-low-bloom.caf */,
+				79092E71FC6E13CCECB4BE85 /* machine-mode.caf */,
+			);
+			path = Sounds;
+			sourceTree = "<group>";
+		};
+		BD5AC3DE36D279EBD2AE7A7F /* Shared */ = {
+			isa = PBXGroup;
+			children = (
+				211B891AAFCD678667F24B0B /* DismissJingleAlarmIntent.swift */,
+				BABD367101276D9E5CF55C47 /* JingleAlarmAttributes.swift */,
 			);
 			path = Shared;
+			sourceTree = "<group>";
+		};
+		D99186EB29F949A9440CDE2A = {
+			isa = PBXGroup;
+			children = (
+				6D42605EF85776590A523968 /* Jingle */,
+				9291143FE4D57AF3627F14B4 /* JingleWidgets */,
+				53A2E15A03FCF7C40D23C329 /* Packages */,
+				BD5AC3DE36D279EBD2AE7A7F /* Shared */,
+				7ED7812F6CCEAAF8011FCC35 /* Products */,
+			);
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		A10000000000000000000008 /* Jingle */ = {
+		826A2271EAC8FC9E45B651C2 /* Jingle */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = A10000000000000000000017 /* Build configuration list for PBXNativeTarget "Jingle" */;
+			buildConfigurationList = 0D17D539011BB042D0372556 /* Build configuration list for PBXNativeTarget "Jingle" */;
 			buildPhases = (
-				A1000000000000000000000A /* Sources */,
-				A1000000000000000000000C /* Frameworks */,
-				A1000000000000000000000B /* Resources */,
-				A10000000000000000000010 /* Embed Foundation Extensions */,
+				1244112AD97800146DC7F4A0 /* Sources */,
+				130CB129246CE66B9B5D4D3D /* Resources */,
+				319320F92800DB784C83CCD7 /* Frameworks */,
+				434CB6DED7DBE4A3A524FA20 /* Embed Foundation Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				A10000000000000000000012 /* PBXTargetDependency */,
+				FB0494A8908D32E210403553 /* PBXTargetDependency */,
 			);
 			name = Jingle;
 			packageProductDependencies = (
-				A10000000000000000000014 /* JingleCore */,
+				1B7878D8C7423C2EBA3C69DC /* JingleCore */,
 			);
 			productName = Jingle;
-			productReference = A1000000000000000000001F /* Jingle.app */;
+			productReference = F9CD73A6784BE61A1AF32E77 /* Jingle.app */;
 			productType = "com.apple.product-type.application";
 		};
-		A10000000000000000000009 /* JingleWidgets */ = {
+		C0DCE4ABF8DD4C7CC62500F0 /* JingleWidgets */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = A10000000000000000000018 /* Build configuration list for PBXNativeTarget "JingleWidgets" */;
+			buildConfigurationList = 2F7B7AD3A4E5E118C0FF4FFD /* Build configuration list for PBXNativeTarget "JingleWidgets" */;
 			buildPhases = (
-				A1000000000000000000000D /* Sources */,
-				A1000000000000000000000F /* Frameworks */,
-				A1000000000000000000000E /* Resources */,
+				91CB06CB637E33B186884FD3 /* Sources */,
+				00FBCE02139D3F50630076A0 /* Resources */,
+				29B2DC458BB8F00CC2092FBF /* Frameworks */,
 			);
 			buildRules = (
 			);
@@ -236,132 +250,176 @@
 			);
 			name = JingleWidgets;
 			packageProductDependencies = (
-				A10000000000000000000015 /* JingleCore */,
+				7063B8696D32988BC5F33798 /* JingleCore */,
 			);
 			productName = JingleWidgets;
-			productReference = A10000000000000000000020 /* JingleWidgets.appex */;
+			productReference = 1F74818A34E6C46972383CEC /* JingleWidgets.appex */;
 			productType = "com.apple.product-type.app-extension";
 		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
-		A10000000000000000000001 /* Project object */ = {
+		77A568E64381EEDE955DA2F6 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				BuildIndependentTargetsInParallel = 1;
-				LastSwiftUpdateCheck = 1600;
-				LastUpgradeCheck = 1600;
-				ORGANIZATIONNAME = "Matthew Finley";
+				BuildIndependentTargetsInParallel = YES;
+				LastUpgradeCheck = 1430;
 				TargetAttributes = {
-					A10000000000000000000008 = {
-						CreatedOnToolsVersion = 16.0;
+					826A2271EAC8FC9E45B651C2 = {
+						ProvisioningStyle = Automatic;
 					};
-					A10000000000000000000009 = {
-						CreatedOnToolsVersion = 16.0;
+					C0DCE4ABF8DD4C7CC62500F0 = {
+						ProvisioningStyle = Automatic;
 					};
 				};
 			};
-			buildConfigurationList = A10000000000000000000016 /* Build configuration list for PBXProject "Jingle" */;
-			compatibilityVersion = "Xcode 14.0";
+			buildConfigurationList = 6C7A3EF0C8C3441C01313E3E /* Build configuration list for PBXProject "Jingle" */;
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
-				en,
 				Base,
+				en,
 			);
-			mainGroup = A10000000000000000000002;
+			mainGroup = D99186EB29F949A9440CDE2A;
+			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
-				A10000000000000000000013 /* XCLocalSwiftPackageReference "JingleCore" */,
+				4E40E2EBE2559C92D7DD485C /* XCLocalSwiftPackageReference "JingleCore" */,
 			);
-			productRefGroup = A10000000000000000000003 /* Products */;
+			preferredProjectObjectVersion = 77;
+			productRefGroup = 7ED7812F6CCEAAF8011FCC35 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				A10000000000000000000008 /* Jingle */,
-				A10000000000000000000009 /* JingleWidgets */,
+				826A2271EAC8FC9E45B651C2 /* Jingle */,
+				C0DCE4ABF8DD4C7CC62500F0 /* JingleWidgets */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		A1000000000000000000000B /* Resources */ = {
+		00FBCE02139D3F50630076A0 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A1000000000000000000008C /* PrivacyInfo.xcprivacy in Resources */,
-				A1000000000000000000008D /* Assets.xcassets in Resources */,
-				A100000000000000000000C1 /* 01-a-pocket-of-bells.caf in Resources */,
-				A100000000000000000000C2 /* 02-keys-in-the-amber.caf in Resources */,
-				A100000000000000000000C3 /* 03-brass-under-linen.caf in Resources */,
-				A100000000000000000000C4 /* 04-brush-against-the-block.caf in Resources */,
-				A100000000000000000000C5 /* 05-fifth-along-the-floor.caf in Resources */,
-				A100000000000000000000C6 /* 06-harmonics-on-the-sill.caf in Resources */,
-				A100000000000000000000C7 /* 07-loose-bells-slow-cadence.caf in Resources */,
-				A100000000000000000000C8 /* 08-the-low-bloom.caf in Resources */,
+				6F7D8C1DCE8F1EE32D52EACA /* PrivacyInfo.xcprivacy in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		A1000000000000000000000E /* Resources */ = {
+		130CB129246CE66B9B5D4D3D /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A10000000000000000000098 /* PrivacyInfo.xcprivacy in Resources */,
+				59651A9E84645D1A0A4F1271 /* 01-a-pocket-of-bells.caf in Resources */,
+				A2750CD6670154D969720C13 /* 02-keys-in-the-amber.caf in Resources */,
+				7F847C89645BDA6836350379 /* 03-brass-under-linen.caf in Resources */,
+				8ECBEBE45B1322DF1F6D0478 /* 04-brush-against-the-block.caf in Resources */,
+				96C0ADE9D9CAA54251CE5815 /* 05-fifth-along-the-floor.caf in Resources */,
+				B5DBBCFBFB664902A64D372F /* 06-harmonics-on-the-sill.caf in Resources */,
+				DAB7287FE5133FE58C348786 /* 07-loose-bells-slow-cadence.caf in Resources */,
+				CF0860BC7048E48AB95B09C7 /* 08-the-low-bloom.caf in Resources */,
+				1B621B62DA34821F59044229 /* Assets.xcassets in Resources */,
+				4E8DAD10A3884720A143320A /* PrivacyInfo.xcprivacy in Resources */,
+				913F8CDEA476A1C50548177B /* machine-mode.caf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		A1000000000000000000000A /* Sources */ = {
+		1244112AD97800146DC7F4A0 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A10000000000000000000080 /* AlarmController.swift in Sources */,
-				A10000000000000000000081 /* AlarmEditorView.swift in Sources */,
-				A10000000000000000000082 /* AlarmHomeView.swift in Sources */,
-				A10000000000000000000083 /* AlarmNotificationScheduler.swift in Sources */,
-				A10000000000000000000084 /* AlarmPermissionsManager.swift in Sources */,
-				A10000000000000000000085 /* JingleApp.swift in Sources */,
-				A10000000000000000000086 /* JingleTheme.swift in Sources */,
-				A10000000000000000000087 /* LiveActivityController.swift in Sources */,
-				A10000000000000000000088 /* ProgressiveAudioEngine.swift in Sources */,
-				A10000000000000000000089 /* RingingView.swift in Sources */,
-				A1000000000000000000008A /* DismissJingleAlarmIntent.swift in Sources */,
-				A1000000000000000000008B /* JingleAlarmAttributes.swift in Sources */,
+				D893B9791E2A38FCF86743A8 /* AlarmController.swift in Sources */,
+				E5D6D3BF70C8698F2EAC63BC /* AlarmEditorView.swift in Sources */,
+				791E7CA8B4AE43C49EEC071C /* AlarmHomeView.swift in Sources */,
+				89D5FE7D1C04ACB036555147 /* AlarmNotificationScheduler.swift in Sources */,
+				245D850189F56F532F87D268 /* AlarmPermissionsManager.swift in Sources */,
+				28F6AC985CB12033890A6B65 /* BedsideDisplay.swift in Sources */,
+				D38A5F1A580B60506A8F617F /* DismissJingleAlarmIntent.swift in Sources */,
+				4E073B3899E78A71570E7812 /* JingleAlarmAttributes.swift in Sources */,
+				CECCA823BCEE6236C639E7A0 /* JingleApp.swift in Sources */,
+				CCD7EA59D6CECF7EBCABA0B8 /* JingleTheme.swift in Sources */,
+				53DE8A2C67BCECC031489F50 /* LiveActivityController.swift in Sources */,
+				D24BEC66DD94E53DAD8D2036 /* PrivacyPolicyView.swift in Sources */,
+				84BF84AECBD716C1372ADEFE /* ProgressiveAudioEngine.swift in Sources */,
+				7E37632DCB21458918ED3EFB /* RingingView.swift in Sources */,
+				77DD0DB67E2EDA8BC331CB2E /* SettingsView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		A1000000000000000000000D /* Sources */ = {
+		91CB06CB637E33B186884FD3 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A10000000000000000000093 /* JingleLiveActivityWidget.swift in Sources */,
-				A10000000000000000000094 /* JingleWidgetsBundle.swift in Sources */,
-				A10000000000000000000095 /* NextAlarmWidget.swift in Sources */,
-				A10000000000000000000096 /* DismissJingleAlarmIntent.swift in Sources */,
-				A10000000000000000000097 /* JingleAlarmAttributes.swift in Sources */,
+				FD8D27389C31619E8F5FD7AC /* DismissJingleAlarmIntent.swift in Sources */,
+				0E555EDD005927ABB576F1BE /* JingleAlarmAttributes.swift in Sources */,
+				4854E41A0873BBA5FEBFA6AF /* JingleLiveActivityWidget.swift in Sources */,
+				7B8DCEE35C81A8BC939DA682 /* JingleWidgetsBundle.swift in Sources */,
+				D84D1E1FAB91CF6DF1B4178A /* NextAlarmWidget.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		A10000000000000000000012 /* PBXTargetDependency */ = {
+		FB0494A8908D32E210403553 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = A10000000000000000000009 /* JingleWidgets */;
-			targetProxy = A10000000000000000000011 /* PBXContainerItemProxy */;
+			target = C0DCE4ABF8DD4C7CC62500F0 /* JingleWidgets */;
+			targetProxy = 2143FCA7CB206C5B2591C06B /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
-		A10000000000000000000019 /* Debug */ = {
+		351D9E5841B08118264DF79C /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Jingle/Jingle.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = Jingle/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = app.jingle.ios;
+				PRODUCT_NAME = Jingle;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Release;
+		};
+		4FA8AFAA81CD42D950ADF62A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = JingleWidgets/JingleWidgets.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = JingleWidgets/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = app.jingle.ios.widgets;
+				PRODUCT_NAME = JingleWidgets;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Debug;
+		};
+		837203784FC0790A76125455 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_ENABLE_OBJC_WEAK = YES;
@@ -386,12 +444,20 @@
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				ENABLE_USER_SCRIPT_SANDBOXING = YES;
-				GCC_C_LANGUAGE_STANDARD = gnu17;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"DEBUG=1",
+				);
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
@@ -399,10 +465,14 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MARKETING_VERSION = 1.0.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
@@ -410,14 +480,14 @@
 			};
 			name = Debug;
 		};
-		A1000000000000000000001A /* Release */ = {
+		96AB4565F7766D305DAAFBE5 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_ENABLE_OBJC_WEAK = YES;
@@ -442,11 +512,13 @@
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				ENABLE_USER_SCRIPT_SANDBOXING = YES;
-				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
@@ -455,177 +527,110 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MARKETING_VERSION = 1.0.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
-				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
 		};
-		A1000000000000000000001B /* Debug */ = {
+		B304D193D5440D0F43218886 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				ENABLE_PREVIEWS = YES;
-				GENERATE_INFOPLIST_FILE = NO;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
-				MARKETING_VERSION = 1.0.0;
-				SDKROOT = iphoneos;
-				SUPPORTS_MACCATALYST = NO;
-				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
-				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
-				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 1;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_ENTITLEMENTS = Jingle/Jingle.entitlements;
-				INFOPLIST_FILE = Jingle/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = ("$(inherited)", "@executable_path/Frameworks",);
-				PRODUCT_BUNDLE_IDENTIFIER = app.jingle.ios;
-				PRODUCT_NAME = Jingle;
-			};
-			name = Debug;
-		};
-		A1000000000000000000001C /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				ENABLE_PREVIEWS = YES;
-				GENERATE_INFOPLIST_FILE = NO;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
-				MARKETING_VERSION = 1.0.0;
-				SDKROOT = iphoneos;
-				SUPPORTS_MACCATALYST = NO;
-				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
-				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
-				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 1;
-				SWIFT_OPTIMIZATION_LEVEL = "-O";
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_ENTITLEMENTS = Jingle/Jingle.entitlements;
-				INFOPLIST_FILE = Jingle/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = ("$(inherited)", "@executable_path/Frameworks",);
-				PRODUCT_BUNDLE_IDENTIFIER = app.jingle.ios;
-				PRODUCT_NAME = Jingle;
-			};
-			name = Release;
-		};
-		A1000000000000000000001D /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				ENABLE_PREVIEWS = YES;
-				GENERATE_INFOPLIST_FILE = NO;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
-				MARKETING_VERSION = 1.0.0;
-				SDKROOT = iphoneos;
-				SUPPORTS_MACCATALYST = NO;
-				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
-				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
-				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 1;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				CODE_SIGN_ENTITLEMENTS = JingleWidgets/JingleWidgets.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = JingleWidgets/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = ("$(inherited)", "@executable_path/Frameworks", "@executable_path/../../Frameworks",);
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = app.jingle.ios.widgets;
 				PRODUCT_NAME = JingleWidgets;
-				SKIP_INSTALL = YES;
-			};
-			name = Debug;
-		};
-		A1000000000000000000001E /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				ENABLE_PREVIEWS = YES;
-				GENERATE_INFOPLIST_FILE = NO;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
-				MARKETING_VERSION = 1.0.0;
 				SDKROOT = iphoneos;
-				SUPPORTS_MACCATALYST = NO;
-				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
-				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
-				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 1;
-				SWIFT_OPTIMIZATION_LEVEL = "-O";
-				CODE_SIGN_ENTITLEMENTS = JingleWidgets/JingleWidgets.entitlements;
-				INFOPLIST_FILE = JingleWidgets/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = ("$(inherited)", "@executable_path/Frameworks", "@executable_path/../../Frameworks",);
-				PRODUCT_BUNDLE_IDENTIFIER = app.jingle.ios.widgets;
-				PRODUCT_NAME = JingleWidgets;
 				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
+		};
+		F767194170CC1BF1CC1EB18A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Jingle/Jingle.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = Jingle/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = app.jingle.ios;
+				PRODUCT_NAME = Jingle;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Debug;
 		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		A10000000000000000000016 /* Build configuration list for PBXProject "Jingle" */ = {
+		0D17D539011BB042D0372556 /* Build configuration list for PBXNativeTarget "Jingle" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				A10000000000000000000019 /* Debug */,
-				A1000000000000000000001A /* Release */,
+				F767194170CC1BF1CC1EB18A /* Debug */,
+				351D9E5841B08118264DF79C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
-		A10000000000000000000017 /* Build configuration list for PBXNativeTarget "Jingle" */ = {
+		2F7B7AD3A4E5E118C0FF4FFD /* Build configuration list for PBXNativeTarget "JingleWidgets" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				A1000000000000000000001B /* Debug */,
-				A1000000000000000000001C /* Release */,
+				4FA8AFAA81CD42D950ADF62A /* Debug */,
+				B304D193D5440D0F43218886 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
-		A10000000000000000000018 /* Build configuration list for PBXNativeTarget "JingleWidgets" */ = {
+		6C7A3EF0C8C3441C01313E3E /* Build configuration list for PBXProject "Jingle" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				A1000000000000000000001D /* Debug */,
-				A1000000000000000000001E /* Release */,
+				837203784FC0790A76125455 /* Debug */,
+				96AB4565F7766D305DAAFBE5 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
 /* End XCConfigurationList section */
 
 /* Begin XCLocalSwiftPackageReference section */
-		A10000000000000000000013 /* XCLocalSwiftPackageReference "JingleCore" */ = {
+		4E40E2EBE2559C92D7DD485C /* XCLocalSwiftPackageReference "JingleCore" */ = {
 			isa = XCLocalSwiftPackageReference;
 			relativePath = JingleCore;
 		};
 /* End XCLocalSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		A10000000000000000000014 /* JingleCore */ = {
+		1B7878D8C7423C2EBA3C69DC /* JingleCore */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = A10000000000000000000013 /* XCLocalSwiftPackageReference "JingleCore" */;
 			productName = JingleCore;
 		};
-		A10000000000000000000015 /* JingleCore */ = {
+		7063B8696D32988BC5F33798 /* JingleCore */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = A10000000000000000000013 /* XCLocalSwiftPackageReference "JingleCore" */;
 			productName = JingleCore;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
-	rootObject = A10000000000000000000001 /* Project object */;
+	rootObject = 77A568E64381EEDE955DA2F6 /* Project object */;
 }

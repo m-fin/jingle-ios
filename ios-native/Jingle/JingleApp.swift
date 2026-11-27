@@ -4,11 +4,17 @@ import SwiftUI
 struct JingleApp: App {
     @StateObject private var model = AlarmController()
 
+    private var palette: JinglePalette {
+        JingleTheme.palette(model.settings.theme)
+    }
+
     var body: some Scene {
         WindowGroup {
             AlarmHomeView()
                 .environmentObject(model)
-                .tint(JingleTheme.orange)
+                .environment(\.jinglePalette, palette)
+                .tint(palette.orange)
+                .preferredColorScheme(palette.preferredColorScheme)
         }
     }
 }

@@ -36,7 +36,9 @@ final class AlarmNotificationScheduler {
 
     func reschedule(alarms: [Alarm], now: Date) async {
         let pending = await center.pendingNotificationRequests()
-        let ours = pending.map(\.identifier).filter { $0.hasPrefix(AlarmNotificationIdentity.prefix) }
+        let ours = pending.map(\.identifier).filter {
+            $0.hasPrefix(AlarmNotificationIdentity.prefix) || $0.hasPrefix(AlarmNotificationIdentity.machinePrefix)
+        }
         center.removePendingNotificationRequests(withIdentifiers: ours)
 
         let plans = AlarmNotificationPlanner.requests(for: alarms, now: now, calendar: calendar)
