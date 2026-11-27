@@ -4,7 +4,7 @@ Native SwiftUI alarm clock for iPhone. Bundle id `app.jingle.ios`. Version 1.0.0
 
 Designed by Matthew Finley. The source is MIT, same as the rest of this repository. Copyright 2026 Matthew Finley.
 
-This folder sits beside the Expo app. It does not replace it. Alarms are dismiss-only. The featured wake is an original synthesis of Jingle Bells: sleigh-bell clusters, a warm body tone, and a smooth rise in volume.
+This folder sits beside the Expo app. It does not replace it. Alarms are dismiss-only. The featured wake is **A Pocket of Bells**, from *The Unstartled Morning* by Matthew Finley. Seven more original pieces are in the same picker.
 
 Jingle keeps alarms on the phone. There is no account, no tracking, and no collected data. The privacy manifest declares UserDefaults reason `CA92.1` only.
 
@@ -42,13 +42,13 @@ The app group is how the home screen widget and the Live Activity read the next 
 
 ## What the morning does
 
-The main screen shows the next alarm, a countdown, the alarm list, and a **+** button. Add or edit an alarm to set the time, a label, weekday pills, a wake tone, and how long the volume takes to rise. **Try this wake** previews the rise. Jingle Bells is the featured tone. Hearth, Amber, Linen, and Tide are quieter drones.
+The main screen shows the next alarm, a countdown, the alarm list, and a **+** button. Add or edit an alarm to set the time, a label, weekday pills, a wake tone, and how long the volume takes to rise. **Try this wake** previews the piece. **A Pocket of Bells** is the featured tone. **Loose Bells, Slow Cadence** is the other bell piece. The rest are Keys in the Amber, Brass Under Linen, Brush Against the Block, Fifth Along the Floor, Harmonics on the Sill, and The Low Bloom.
 
 An empty weekday row rings once and then turns off. Weekdays, weekends, and every day keep repeating. Dismiss is the only action, in the app, on the notification, and on the Live Activity.
 
 While a wake is playing, Jingle uses an audio session with category Playback and Mix With Others, plus the `audio` background mode. That session follows the volume buttons and keeps going if you leave the app. It also mixes with the iOS Clock app, so the two can sound together.
 
-A locked iPhone still starts from a local notification. That notification uses the Time Sensitive interruption level and a short Jingle Bells file. It follows notification settings and the Ring/Silent switch. The in-app rise takes over when Jingle is open or already playing.
+A locked iPhone still starts from a local notification. That notification uses the Time Sensitive interruption level and the 28-second CAF for the chosen tone. It follows notification settings and the Ring/Silent switch. When Jingle is open, or already playing, the same file continues and then loops its arrived section until you dismiss it.
 
 If notifications, sound, or Time Sensitive alerts are off, the main screen shows a short banner and an **Open Settings** button (or **Allow Notifications** if iOS has not asked yet).
 
@@ -59,7 +59,7 @@ Do this on the iPhone before you archive.
 1. Run Jingle from Xcode onto the phone.
 2. Allow notifications. Turn on Sounds and Time Sensitive Notifications for Jingle. Turn on Live Activities.
 3. Set the Ring/Silent switch to Ring.
-4. Add an alarm two or three minutes ahead. Pick Jingle Bells and a 30 second rise.
+4. Add an alarm two or three minutes ahead. Leave the tone on A Pocket of Bells and choose a 30 second rise.
 5. Leave Jingle, lock the phone, and wait.
 6. The lock screen should show Jingle’s alert and, when a next alarm is armed, the Live Activity. The short bell tone plays from the notification. Open Jingle and tap **Dismiss**. A one-time alarm turns off. A repeating alarm stays armed for the next day.
 
@@ -70,7 +70,7 @@ Home Screen widgets (small and medium) and Lock Screen widgets (rectangular and 
 Jingle is built to sit beside the iOS Clock app when both are set for the same minute.
 
 1. On the iPhone, open Clock and set an alarm for a minute a few minutes from now.
-2. In Jingle, set an alarm for that same minute. Use Jingle Bells and a 30 second rise. Leave Jingle’s alarm on.
+2. In Jingle, set an alarm for that same minute. Use A Pocket of Bells and a 30 second rise. Leave Jingle’s alarm on.
 3. Confirm notifications, sound, and Time Sensitive alerts are on for Jingle, and Live Activities are on. Set the Ring/Silent switch to Ring.
 4. Lock the phone and wait for the minute.
 5. Both alerts should appear. Clock and Jingle should both be audible. Jingle mixes; it does not take the audio session away from Clock.
@@ -80,7 +80,7 @@ Jingle is built to sit beside the iOS Clock app when both are set for the same m
 
 ## Tests
 
-Core scheduling, the rise curve, the Jingle Bells voice, storage, notification ids, audio-interruption state, and permission readiness live in the `JingleCore` package. They run on Linux and on a Mac:
+Core scheduling, the rise curve, the eight wake-tone filenames, storage, notification ids, audio-interruption state, and permission readiness live in the `JingleCore` package. They run on Linux and on a Mac:
 
 ```bash
 cd ios-native/JingleCore
@@ -89,12 +89,7 @@ swift test
 
 In Xcode you can also test the JingleCore package from the package navigator.
 
-The short notification tones in `Jingle/Sounds` come from that same synthesizer:
-
-```bash
-cd ios-native/JingleCore
-swift run -c release JingleRender ../Jingle/Sounds
-```
+The eight wake files in `Jingle/Sounds` are 28-second CAF recordings. Xcode copies them to the top of the app bundle, so notification sounds and in-app playback both open them by filename.
 
 ## Optional later upgrades
 

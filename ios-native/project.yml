@@ -26,6 +26,12 @@ targets:
         excludes:
           - Info.plist
           - Jingle.entitlements
+          - "Sounds/**"
+      # Copied to the app bundle root so UNNotificationSound and AVAudioPlayer
+      # both open the CAF files by filename.
+      - path: Jingle/Sounds
+        type: group
+        buildPhase: resources
       - path: Shared
     dependencies:
       - package: JingleCore

@@ -14,7 +14,7 @@ final class StoreTests: XCTestCase {
                 label: "  Read  ",
                 enabled: true,
                 repeatWeekdays: [],
-                tone: .hearth,
+                tone: .keysInTheAmber,
                 progressiveRampSeconds: 120
             ),
         ])
@@ -24,7 +24,7 @@ final class StoreTests: XCTestCase {
         XCTAssertTrue(loaded.seeded)
         XCTAssertEqual(loaded.alarms.count, 2)
         let morning = loaded.alarms.first { $0.id == "weekday-morning" }
-        XCTAssertEqual(morning?.tone, .jingleBells)
+        XCTAssertEqual(morning?.tone, .pocketOfBells)
         XCTAssertEqual(morning?.repeatWeekdays, Weekday.weekdays)
         XCTAssertEqual(morning?.progressiveRampSeconds, 60)
         let once = loaded.alarms.first { $0.id == "once" }
@@ -35,7 +35,7 @@ final class StoreTests: XCTestCase {
         XCTAssertEqual(loaded.dismissal?.at.timeIntervalSince1970 ?? 0, 1_700_000_000, accuracy: 0.5)
     }
 
-    func testUnknownToneBecomesJingleBellsAndInvalidHourIsDropped() {
+    func testUnknownToneBecomesPocketOfBellsAndInvalidHourIsDropped() {
         let payload: [String: Any] = [
             "version": 1,
             "seeded": true,
@@ -57,7 +57,7 @@ final class StoreTests: XCTestCase {
                     "label": "Bad",
                     "enabled": true,
                     "repeatWeekdays": [],
-                    "tone": "jingleBells",
+                    "tone": "pocketOfBells",
                     "progressiveRampSeconds": 60,
                 ],
             ],
@@ -67,7 +67,7 @@ final class StoreTests: XCTestCase {
         memory.set(data, forKey: AlarmStore.storageKey)
         let loaded = AlarmStore(store: memory).load()
         XCTAssertEqual(loaded.alarms.map(\.id), ["good"])
-        XCTAssertEqual(loaded.alarms.first?.tone, .jingleBells)
+        XCTAssertEqual(loaded.alarms.first?.tone, .pocketOfBells)
         XCTAssertEqual(loaded.alarms.first?.repeatWeekdays, [.monday, .wednesday])
     }
 
@@ -95,7 +95,7 @@ final class StoreTests: XCTestCase {
                 label: "A",
                 enabled: true,
                 repeatWeekdays: [],
-                tone: .jingleBells,
+                tone: .pocketOfBells,
                 progressiveRampSeconds: 60
             )))
         }
@@ -106,7 +106,7 @@ final class StoreTests: XCTestCase {
             label: "Extra",
             enabled: true,
             repeatWeekdays: [],
-            tone: .amber,
+            tone: .looseBells,
             progressiveRampSeconds: 60
         )))
         XCTAssertEqual(library.alarms.count, 8)

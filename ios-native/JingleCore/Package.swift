@@ -9,11 +9,9 @@ let package = Package(
     ],
     products: [
         .library(name: "JingleCore", targets: ["JingleCore"]),
-        .executable(name: "JingleRender", targets: ["JingleRender"]),
     ],
     targets: [
         .target(name: "JingleCore"),
-        .executableTarget(name: "JingleRender", dependencies: ["JingleCore"]),
         .testTarget(name: "JingleCoreTests", dependencies: ["JingleCore"]),
     ]
 )

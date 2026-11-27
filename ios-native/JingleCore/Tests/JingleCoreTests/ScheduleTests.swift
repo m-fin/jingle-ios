@@ -144,7 +144,7 @@ final class ScheduleTests: XCTestCase {
             label: "Morning",
             enabled: true,
             repeatWeekdays: days,
-            tone: .jingleBells,
+            tone: .pocketOfBells,
             progressiveRampSeconds: 60
         )
     }

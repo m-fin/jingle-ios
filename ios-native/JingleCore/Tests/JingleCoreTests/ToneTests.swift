@@ -25,97 +25,63 @@ final class ToneTests: XCTestCase {
         }
     }
 
-    func testJingleBellsIsTheFeaturedDefault() {
-        XCTAssertEqual(WakeTone.featured, .jingleBells)
-        XCTAssertEqual(WakeTone.allCases.first, .jingleBells)
-        XCTAssertEqual(Alarm.weekdayMorning().tone, .jingleBells)
-        XCTAssertEqual(WakeTone.jingleBells.notificationSoundName, "jingleBells.wav")
+    func testPlaybackGainStartsAtMinusTwelveDecibelsAndHoldsFull() {
+        XCTAssertEqual(WakePlaybackGain.level(elapsed: 0, rampSeconds: 60), WakePlaybackGain.floorLinear, accuracy: 0.0001)
+        XCTAssertEqual(WakePlaybackGain.floorDecibels, -12, accuracy: 0.001)
+        XCTAssertEqual(WakePlaybackGain.level(elapsed: 90, rampSeconds: 60), 1, accuracy: 0.0001)
+        XCTAssertLessThan(WakePlaybackGain.level(elapsed: 10, rampSeconds: 60), WakePlaybackGain.level(elapsed: 40, rampSeconds: 60))
     }
 
-    func testChorusOpensWithThePublicDomainMelody() {
-        let notes = JingleBellVoice.chorus.prefix(11).map(\.note)
-        XCTAssertEqual(notes, [.e, .e, .e, .e, .e, .e, .e, .g, .c, .d, .e])
-        XCTAssertEqual(JingleBellVoice.chorus.last?.note, .c)
-        let e4 = MelodyEvent(note: .e, octave: 4, beats: 1).frequencyHz
-        XCTAssertEqual(e4, 329.627, accuracy: 0.05)
-    }
-
-    func testBellVoiceIsAnInharmonicClusterWithAWarmBody() {
-        let partials = JingleBellVoice.partials
-        XCTAssertGreaterThanOrEqual(partials.count, 5)
-        let inharmonic = partials.filter { partial in
-            let nearest = round(partial.ratio)
-            return abs(partial.ratio - nearest) > 0.03
+    func testCatalogMapsAllEightWakeFiles() {
+        let expected = [
+            "01-a-pocket-of-bells.caf",
+            "02-keys-in-the-amber.caf",
+            "03-brass-under-linen.caf",
+            "04-brush-against-the-block.caf",
+            "05-fifth-along-the-floor.caf",
+            "06-harmonics-on-the-sill.caf",
+            "07-loose-bells-slow-cadence.caf",
+            "08-the-low-bloom.caf",
+        ]
+        let files = WakeTone.allCases.map(\.notificationSoundName)
+        XCTAssertEqual(files, expected)
+        XCTAssertEqual(Set(files).count, 8)
+        XCTAssertEqual(WakeTone.catalog.map(\.filename), expected)
+        for tone in WakeTone.allCases {
+            XCTAssertTrue(tone.notificationSoundName.hasSuffix(".caf"))
+            XCTAssertEqual(tone.duration, 28, accuracy: 0.001)
+            XCTAssertGreaterThan(tone.loopStart, 0)
+            XCTAssertLessThan(tone.loopStart, tone.duration)
+            XCTAssertFalse(tone.displayName.isEmpty)
+            XCTAssertFalse(tone.detail.isEmpty)
         }
-        XCTAssertGreaterThanOrEqual(inharmonic.count, 3)
-        let highest = partials.max { $0.ratio < $1.ratio }!
-        XCTAssertGreaterThan(highest.decay, JingleBellVoice.bodyDecay)
-        XCTAssertEqual(JingleBellVoice.bodyRatio, 0.5)
-        XCTAssertGreaterThan(JingleBellVoice.bodyAmplitude, highest.amplitude)
-        XCTAssertEqual(JingleBellVoice.clusterDetune.count, 3)
-        for detune in JingleBellVoice.clusterDetune {
-            XCTAssertEqual(detune, 1, accuracy: 0.03)
-        }
-        let offsets = JingleBellVoice.shakeOffsets(duration: 0.5)
-        XCTAssertGreaterThanOrEqual(offsets.count, 3)
-        XCTAssertEqual(offsets.first, 0)
     }
 
-    func testOtherTonesStayWarmAndQuietInTheOvertone() {
-        for tone in WakeTone.allCases where tone != .jingleBells {
-            let recipe = ToneLibrary.additive(for: tone)
-            XCTAssertNotNil(recipe, tone.rawValue)
-            XCTAssertGreaterThanOrEqual(recipe!.fundamentalHz, 80)
-            XCTAssertLessThanOrEqual(recipe!.fundamentalHz, 180)
-            XCTAssertLessThanOrEqual(recipe!.secondaryHz, 220)
-            if !recipe!.alternates {
-                XCTAssertLessThanOrEqual(recipe!.secondaryGain, 0.35)
-            }
-        }
-        XCTAssertNil(ToneLibrary.additive(for: .jingleBells))
+    func testPocketOfBellsIsTheFeaturedDefault() {
+        XCTAssertEqual(WakeTone.featured, .pocketOfBells)
+        XCTAssertEqual(WakeTone.allCases.first, .pocketOfBells)
+        XCTAssertEqual(WakeTone.pocketOfBells.displayName, "A Pocket of Bells")
+        XCTAssertEqual(WakeTone.pocketOfBells.notificationSoundName, "01-a-pocket-of-bells.caf")
+        XCTAssertEqual(WakeTone.pocketOfBells.loopStart, 14, accuracy: 0.001)
+        XCTAssertEqual(Alarm.weekdayMorning().tone, .pocketOfBells)
+        XCTAssertEqual(WakeTone.looseBells.displayName, "Loose Bells, Slow Cadence")
+        XCTAssertEqual(WakeTone.looseBells.notificationSoundName, "07-loose-bells-slow-cadence.caf")
     }
 
-    func testJingleBellsRendersRhythmicBurstsThatFollowTheRamp() {
-        let full = ToneSampleSource(tone: .jingleBells, sampleRate: 8_000, rampSeconds: 0)
-        let samples = full.render(frames: 16_000)
-        let peaks = peakCount(samples, window: 320)
-        XCTAssertGreaterThanOrEqual(peaks, 5)
-        let peak = samples.map { abs($0) }.max() ?? 0
-        XCTAssertGreaterThan(peak, 0.05)
-        XCTAssertLessThanOrEqual(peak, 1)
-        XCTAssertGreaterThan(windowEnergy(samples, start: 0, length: 1_200), 0.0001)
-
-        let ramped = ToneSampleSource(tone: .jingleBells, sampleRate: 8_000, rampSeconds: 4)
-        XCTAssertEqual(ramped.sample(at: 0), 0, accuracy: 0.0001)
-        let early = windowEnergy(ramped.render(frames: 8_000), start: 0, length: 800)
-        let later = windowEnergy(ramped.render(frames: 32_000), start: 24_000, length: 800)
-        XCTAssertLessThan(early, later)
-    }
-
-    private func windowEnergy(_ samples: [Float], start: Int, length: Int) -> Float {
-        let slice = samples[start..<min(samples.count, start + length)]
-        let energy = slice.reduce(Float(0)) { $0 + $1 * $1 }
-        return energy / Float(slice.count)
-    }
-
-    private func peakCount(_ samples: [Float], window: Int) -> Int {
-        var rms: [Float] = []
-        var index = 0
-        while index + window <= samples.count {
-            var energy: Float = 0
-            for sample in samples[index..<(index + window)] {
-                energy += sample * sample
-            }
-            rms.append(sqrt(energy / Float(window)))
-            index += window
+    func testLoopRegionsMatchTheWakeFiles() {
+        let regions: [WakeTone: Double] = [
+            .pocketOfBells: 14,
+            .keysInTheAmber: 14,
+            .brassUnderLinen: 12,
+            .brushAgainstTheBlock: 14,
+            .fifthAlongTheFloor: 14,
+            .harmonicsOnTheSill: 13,
+            .looseBells: 14,
+            .lowBloom: 14,
+        ]
+        XCTAssertEqual(Set(regions.keys), Set(WakeTone.allCases))
+        for (tone, start) in regions {
+            XCTAssertEqual(tone.loopStart, start, accuracy: 0.001, tone.notificationSoundName)
         }
-        let maxRMS = rms.max() ?? 0
-        guard maxRMS > 0 else { return 0 }
-        let threshold = maxRMS * 0.35
-        var peaks = 0
-        for cursor in 1..<(rms.count - 1) where rms[cursor] >= threshold && rms[cursor] >= rms[cursor - 1] && rms[cursor] > rms[cursor + 1] {
-            peaks += 1
-        }
-        return peaks
     }
 }

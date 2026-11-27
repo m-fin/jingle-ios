@@ -25,7 +25,7 @@ final class NotificationTests: XCTestCase {
         XCTAssertEqual(onceID.identifier, "jingle.alarm.\(once.id)")
         XCTAssertFalse(onceID.repeats)
         XCTAssertNotNil(onceID.fireDate)
-        XCTAssertEqual(onceID.soundName, "jingleBells.wav")
+        XCTAssertEqual(onceID.soundName, "01-a-pocket-of-bells.caf")
 
         let dailyID = planned.first { $0.alarmID == daily.id }!
         XCTAssertEqual(dailyID.identifier, "jingle.alarm.\(daily.id)")
@@ -82,7 +82,7 @@ final class NotificationTests: XCTestCase {
             label: "Morning",
             enabled: true,
             repeatWeekdays: days,
-            tone: .jingleBells,
+            tone: .pocketOfBells,
             progressiveRampSeconds: 60
         )
     }

@@ -39,7 +39,7 @@ public struct Alarm: Codable, Equatable, Identifiable, Sendable, Hashable {
             label: "Morning",
             enabled: true,
             repeatWeekdays: Weekday.weekdays,
-            tone: .jingleBells,
+            tone: .pocketOfBells,
             progressiveRampSeconds: 60
         )
     }
@@ -77,7 +77,7 @@ public struct Alarm: Codable, Equatable, Identifiable, Sendable, Hashable {
         let enabled = try container.decodeIfPresent(Bool.self, forKey: .enabled) ?? true
         let rawDays = try container.decodeIfPresent([Int].self, forKey: .repeatWeekdays) ?? []
         let days = Set(rawDays.compactMap(Weekday.init(rawValue:)))
-        let tone = try container.decodeIfPresent(WakeTone.self, forKey: .tone) ?? .jingleBells
+        let tone = try container.decodeIfPresent(WakeTone.self, forKey: .tone) ?? .pocketOfBells
         let ramp = try container.decodeIfPresent(Int.self, forKey: .progressiveRampSeconds) ?? 60
         self.init(
             id: id,

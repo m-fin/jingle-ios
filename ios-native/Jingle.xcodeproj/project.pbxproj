@@ -21,11 +21,14 @@
 		A1000000000000000000008B /* JingleAlarmAttributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000000000000000000007F /* JingleAlarmAttributes.swift */; };
 		A1000000000000000000008C /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = A10000000000000000000071 /* PrivacyInfo.xcprivacy */; };
 		A1000000000000000000008D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A10000000000000000000072 /* Assets.xcassets */; };
-		A1000000000000000000008E /* amber.wav in Resources */ = {isa = PBXBuildFile; fileRef = A10000000000000000000073 /* amber.wav */; };
-		A1000000000000000000008F /* hearth.wav in Resources */ = {isa = PBXBuildFile; fileRef = A10000000000000000000074 /* hearth.wav */; };
-		A10000000000000000000090 /* jingleBells.wav in Resources */ = {isa = PBXBuildFile; fileRef = A10000000000000000000075 /* jingleBells.wav */; };
-		A10000000000000000000091 /* linen.wav in Resources */ = {isa = PBXBuildFile; fileRef = A10000000000000000000076 /* linen.wav */; };
-		A10000000000000000000092 /* tide.wav in Resources */ = {isa = PBXBuildFile; fileRef = A10000000000000000000077 /* tide.wav */; };
+		A100000000000000000000C1 /* 01-a-pocket-of-bells.caf in Resources */ = {isa = PBXBuildFile; fileRef = A100000000000000000000B1 /* 01-a-pocket-of-bells.caf */; };
+		A100000000000000000000C2 /* 02-keys-in-the-amber.caf in Resources */ = {isa = PBXBuildFile; fileRef = A100000000000000000000B2 /* 02-keys-in-the-amber.caf */; };
+		A100000000000000000000C3 /* 03-brass-under-linen.caf in Resources */ = {isa = PBXBuildFile; fileRef = A100000000000000000000B3 /* 03-brass-under-linen.caf */; };
+		A100000000000000000000C4 /* 04-brush-against-the-block.caf in Resources */ = {isa = PBXBuildFile; fileRef = A100000000000000000000B4 /* 04-brush-against-the-block.caf */; };
+		A100000000000000000000C5 /* 05-fifth-along-the-floor.caf in Resources */ = {isa = PBXBuildFile; fileRef = A100000000000000000000B5 /* 05-fifth-along-the-floor.caf */; };
+		A100000000000000000000C6 /* 06-harmonics-on-the-sill.caf in Resources */ = {isa = PBXBuildFile; fileRef = A100000000000000000000B6 /* 06-harmonics-on-the-sill.caf */; };
+		A100000000000000000000C7 /* 07-loose-bells-slow-cadence.caf in Resources */ = {isa = PBXBuildFile; fileRef = A100000000000000000000B7 /* 07-loose-bells-slow-cadence.caf */; };
+		A100000000000000000000C8 /* 08-the-low-bloom.caf in Resources */ = {isa = PBXBuildFile; fileRef = A100000000000000000000B8 /* 08-the-low-bloom.caf */; };
 		A10000000000000000000093 /* JingleLiveActivityWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10000000000000000000078 /* JingleLiveActivityWidget.swift */; };
 		A10000000000000000000094 /* JingleWidgetsBundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10000000000000000000079 /* JingleWidgetsBundle.swift */; };
 		A10000000000000000000095 /* NextAlarmWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000000000000000000007A /* NextAlarmWidget.swift */; };
@@ -78,11 +81,14 @@
 		A10000000000000000000070 /* Jingle.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Jingle.entitlements; sourceTree = "<group>"; };
 		A10000000000000000000071 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		A10000000000000000000072 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		A10000000000000000000073 /* amber.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = amber.wav; sourceTree = "<group>"; };
-		A10000000000000000000074 /* hearth.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = hearth.wav; sourceTree = "<group>"; };
-		A10000000000000000000075 /* jingleBells.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = jingleBells.wav; sourceTree = "<group>"; };
-		A10000000000000000000076 /* linen.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = linen.wav; sourceTree = "<group>"; };
-		A10000000000000000000077 /* tide.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = tide.wav; sourceTree = "<group>"; };
+		A100000000000000000000B1 /* 01-a-pocket-of-bells.caf */ = {isa = PBXFileReference; lastKnownFileType = file.caf; path = "01-a-pocket-of-bells.caf"; sourceTree = "<group>"; };
+		A100000000000000000000B2 /* 02-keys-in-the-amber.caf */ = {isa = PBXFileReference; lastKnownFileType = file.caf; path = "02-keys-in-the-amber.caf"; sourceTree = "<group>"; };
+		A100000000000000000000B3 /* 03-brass-under-linen.caf */ = {isa = PBXFileReference; lastKnownFileType = file.caf; path = "03-brass-under-linen.caf"; sourceTree = "<group>"; };
+		A100000000000000000000B4 /* 04-brush-against-the-block.caf */ = {isa = PBXFileReference; lastKnownFileType = file.caf; path = "04-brush-against-the-block.caf"; sourceTree = "<group>"; };
+		A100000000000000000000B5 /* 05-fifth-along-the-floor.caf */ = {isa = PBXFileReference; lastKnownFileType = file.caf; path = "05-fifth-along-the-floor.caf"; sourceTree = "<group>"; };
+		A100000000000000000000B6 /* 06-harmonics-on-the-sill.caf */ = {isa = PBXFileReference; lastKnownFileType = file.caf; path = "06-harmonics-on-the-sill.caf"; sourceTree = "<group>"; };
+		A100000000000000000000B7 /* 07-loose-bells-slow-cadence.caf */ = {isa = PBXFileReference; lastKnownFileType = file.caf; path = "07-loose-bells-slow-cadence.caf"; sourceTree = "<group>"; };
+		A100000000000000000000B8 /* 08-the-low-bloom.caf */ = {isa = PBXFileReference; lastKnownFileType = file.caf; path = "08-the-low-bloom.caf"; sourceTree = "<group>"; };
 		A10000000000000000000078 /* JingleLiveActivityWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JingleLiveActivityWidget.swift; sourceTree = "<group>"; };
 		A10000000000000000000079 /* JingleWidgetsBundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JingleWidgetsBundle.swift; sourceTree = "<group>"; };
 		A1000000000000000000007A /* NextAlarmWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NextAlarmWidget.swift; sourceTree = "<group>"; };
@@ -157,11 +163,14 @@
 		A10000000000000000000007 /* Sounds */ = {
 			isa = PBXGroup;
 			children = (
-				A10000000000000000000073 /* amber.wav */,
-				A10000000000000000000074 /* hearth.wav */,
-				A10000000000000000000075 /* jingleBells.wav */,
-				A10000000000000000000076 /* linen.wav */,
-				A10000000000000000000077 /* tide.wav */,
+				A100000000000000000000B1 /* 01-a-pocket-of-bells.caf */,
+				A100000000000000000000B2 /* 02-keys-in-the-amber.caf */,
+				A100000000000000000000B3 /* 03-brass-under-linen.caf */,
+				A100000000000000000000B4 /* 04-brush-against-the-block.caf */,
+				A100000000000000000000B5 /* 05-fifth-along-the-floor.caf */,
+				A100000000000000000000B6 /* 06-harmonics-on-the-sill.caf */,
+				A100000000000000000000B7 /* 07-loose-bells-slow-cadence.caf */,
+				A100000000000000000000B8 /* 08-the-low-bloom.caf */,
 			);
 			path = Sounds;
 			sourceTree = "<group>";
@@ -281,11 +290,14 @@
 			files = (
 				A1000000000000000000008C /* PrivacyInfo.xcprivacy in Resources */,
 				A1000000000000000000008D /* Assets.xcassets in Resources */,
-				A1000000000000000000008E /* amber.wav in Resources */,
-				A1000000000000000000008F /* hearth.wav in Resources */,
-				A10000000000000000000090 /* jingleBells.wav in Resources */,
-				A10000000000000000000091 /* linen.wav in Resources */,
-				A10000000000000000000092 /* tide.wav in Resources */,
+				A100000000000000000000C1 /* 01-a-pocket-of-bells.caf in Resources */,
+				A100000000000000000000C2 /* 02-keys-in-the-amber.caf in Resources */,
+				A100000000000000000000C3 /* 03-brass-under-linen.caf in Resources */,
+				A100000000000000000000C4 /* 04-brush-against-the-block.caf in Resources */,
+				A100000000000000000000C5 /* 05-fifth-along-the-floor.caf in Resources */,
+				A100000000000000000000C6 /* 06-harmonics-on-the-sill.caf in Resources */,
+				A100000000000000000000C7 /* 07-loose-bells-slow-cadence.caf in Resources */,
+				A100000000000000000000C8 /* 08-the-low-bloom.caf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

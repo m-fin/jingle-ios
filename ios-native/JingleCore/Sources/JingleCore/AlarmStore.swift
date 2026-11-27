@@ -157,7 +157,7 @@ public final class AlarmStore {
         let label = row["label"] as? String
         let enabled = row["enabled"] as? Bool ?? true
         let days = (row["repeatWeekdays"] as? [Int] ?? []).compactMap(Weekday.init(rawValue:))
-        let tone = WakeTone(rawValue: (row["tone"] as? String) ?? "") ?? .jingleBells
+        let tone = WakeTone(rawValue: (row["tone"] as? String) ?? "") ?? .pocketOfBells
         let ramp = row["progressiveRampSeconds"] as? Int ?? 60
         return Alarm(
             id: id,

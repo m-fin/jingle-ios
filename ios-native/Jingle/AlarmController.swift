@@ -87,7 +87,7 @@ final class AlarmController: NSObject, ObservableObject, UNUserNotificationCente
                 label: "Alarm",
                 enabled: true,
                 repeatWeekdays: [],
-                tone: .jingleBells,
+                tone: .pocketOfBells,
                 progressiveRampSeconds: 60
             ),
             isNew: true

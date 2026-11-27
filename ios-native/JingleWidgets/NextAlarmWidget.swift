@@ -13,7 +13,7 @@ struct NextAlarmEntry: TimelineEntry {
 
 struct NextAlarmProvider: TimelineProvider {
     func placeholder(in context: Context) -> NextAlarmEntry {
-        NextAlarmEntry(date: Date(), timeText: "6:00 AM", detail: "Morning · Weekdays", countdown: "Rings tomorrow", toneName: WakeTone.jingleBells.displayName, hasAlarm: true)
+        NextAlarmEntry(date: Date(), timeText: "6:00 AM", detail: "Morning · Weekdays", countdown: "Rings tomorrow", toneName: WakeTone.pocketOfBells.displayName, hasAlarm: true)
     }
 
     func getSnapshot(in context: Context, completion: @escaping (NextAlarmEntry) -> Void) {
