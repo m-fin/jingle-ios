@@ -1,6 +1,7 @@
 import type { Alarm, Snooze, SoundId } from "./types";
 import { NOTIFICATION_BUDGET } from "./types";
 import { machineWeekly, nextOccurrence } from "./time";
+import { wakeClipFilename } from "./wakeClip";
 
 export type NoticeSound = SoundId | "machine";
 export type NoticePurpose = "alarm" | "machine" | "snooze";
@@ -18,8 +19,16 @@ export type NoticeSpec = {
   alarmId: string;
   purpose: NoticePurpose;
   snooze: boolean;
+  /** iOS filename in Library/Sounds. Null uses the bundled `sound` file. */
+  catalogClip?: string | null;
   trigger: NoticeTrigger;
 };
+
+function catalogClip(alarm: Alarm): string | null {
+  const trackId = alarm.catalogTone?.trackId;
+  if (!trackId) return null;
+  return wakeClipFilename(trackId);
+}
 
 function alarmNotices(alarm: Alarm, now: Date): NoticeSpec[] {
   const title = alarm.label || "Jingle";
@@ -31,6 +40,7 @@ function alarmNotices(alarm: Alarm, now: Date): NoticeSpec[] {
     alarmId: alarm.id,
     purpose: "alarm" as const,
     snooze,
+    catalogClip: catalogClip(alarm),
   };
   if (alarm.repeat.length === 0) {
     const when = nextOccurrence(alarm, now);
@@ -64,6 +74,7 @@ function machineNotices(alarm: Alarm, now: Date): NoticeSpec[] {
     alarmId: alarm.id,
     purpose: "machine" as const,
     snooze: false,
+    catalogClip: null,
   };
   if (alarm.repeat.length === 0) {
     const when = nextOccurrence(alarm, now);
@@ -109,6 +120,7 @@ export function planNotifications(alarms: Alarm[], snoozes: Snooze[], now: Date)
       alarmId: alarm.id,
       purpose: "snooze",
       snooze: alarm.snoozeMinutes > 0,
+      catalogClip: catalogClip(alarm),
       trigger: { kind: "date", date: snooze.until },
     });
   }

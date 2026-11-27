@@ -1,5 +1,6 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
+import { sanitizeCatalogTone } from "./catalog";
 import type { Alarm, Settings, Snooze, SoundId, Store, ThemeChoice } from "./types";
 import { DEFAULT_SETTINGS } from "./types";
 
@@ -38,6 +39,7 @@ function sanitizeAlarm(value: unknown): Alarm | null {
     repeat,
     onceDate: repeat.length > 0 ? null : onceDate,
     sound,
+    catalogTone: sanitizeCatalogTone(value.catalogTone),
     snoozeMinutes,
     machineLeadMinutes,
     enabled: value.enabled !== false,

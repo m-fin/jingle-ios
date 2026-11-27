@@ -1,0 +1,29 @@
+{
+  "products": [
+    {
+      "name": "JingleWakeClip",
+      "podName": "JingleWakeClip",
+      "platforms": ["iOS(\"16.4\")"],
+      "externalDependencies": [
+        "ReactNativeDependencies",
+        "React",
+        "Hermes",
+        "expo-modules-core/ExpoModulesCore"
+      ],
+      "swiftLanguageVersions": ["5"],
+      "targets": [
+        {
+          "type": "swift",
+          "name": "JingleWakeClip",
+          "dependencies": [
+            "Hermes",
+            "React",
+            "ReactNativeDependencies",
+            "expo-modules-core/ExpoModulesCore"
+          ],
+          "linkedFrameworks": ["AVFoundation", "Foundation"]
+        }
+      ]
+    }
+  ]
+}

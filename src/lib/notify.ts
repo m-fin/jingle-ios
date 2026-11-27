@@ -1,10 +1,11 @@
 import { AppState, Platform } from "react-native";
 import * as Notifications from "expo-notifications";
 
+import { clipFileExists } from "./catalogDevice";
 import type { NoticeSpec } from "./schedule";
-import { soundFile } from "./sounds";
 import { SOUND_LIST, MACHINE_SOUND } from "./sounds";
 import type { PermissionState } from "./types";
+import { resolveNotificationSound } from "./wakeClip";
 
 export const ACTION_SNOOZE = "SNOOZE";
 export const ACTION_DISMISS = "DISMISS";
@@ -107,8 +108,30 @@ export async function askPermission(): Promise<PermissionState> {
   }
 }
 
-function triggerFor(spec: NoticeSpec): Notifications.NotificationTriggerInput {
-  const file = soundFile(spec.sound);
+async function notificationFile(spec: NoticeSpec, ready: Map<string, boolean>): Promise<string> {
+  const clip = spec.catalogClip ?? null;
+  let clipReady = false;
+  if (clip && Platform.OS === "ios") {
+    const cached = ready.get(clip);
+    if (cached !== undefined) clipReady = cached;
+    else {
+      try {
+        clipReady = await clipFileExists(clip);
+      } catch {
+        clipReady = false;
+      }
+      ready.set(clip, clipReady);
+    }
+  }
+  return resolveNotificationSound({
+    sound: spec.sound,
+    catalogClip: clip,
+    clipReady,
+    platform: Platform.OS,
+  });
+}
+
+function triggerFor(spec: NoticeSpec, file: string): Notifications.NotificationTriggerInput {
   const channel = channelId(file);
   const delivery = Platform.OS === "android" && spec.purpose !== "machine" ? ("alarmClock" as const) : undefined;
   if (spec.trigger.kind === "daily") {
@@ -142,8 +165,9 @@ async function applySchedule(specs: NoticeSpec[]): Promise<void> {
   if (Platform.OS === "web") return;
   await configureNotifications();
   await Notifications.cancelAllScheduledNotificationsAsync();
+  const ready = new Map<string, boolean>();
   for (const spec of specs) {
-    const file = soundFile(spec.sound);
+    const file = await notificationFile(spec, ready);
     try {
       await Notifications.scheduleNotificationAsync({
         identifier: spec.identifier,
@@ -155,7 +179,7 @@ async function applySchedule(specs: NoticeSpec[]): Promise<void> {
           categoryIdentifier: spec.purpose === "machine" ? undefined : spec.snooze ? "jingle-snooze" : "jingle-up",
           data: { alarmId: spec.alarmId, purpose: spec.purpose },
         },
-        trigger: triggerFor(spec),
+        trigger: triggerFor(spec, file),
       });
     } catch {
       // Keep scheduling the rest if one trigger is rejected.

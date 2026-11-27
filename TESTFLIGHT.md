@@ -78,7 +78,7 @@ Smoke test:
 ## Platform limits to know before the pitch
 
 - **Silent switch.** While Jingle is open, playback is set to play in silent mode and the clock stays awake. After the phone locks, iOS plays the notification sound and the Ring/Silent switch can mute it. Ringing through silent mode requires Apple's Critical Alerts entitlement (`com.apple.developer.usernotifications.critical-alerts`). That is a special request to Apple, not a switch in this repo. Apply only if alarms must ignore the silent switch while the phone is locked.
-- **Notification length.** Custom sounds must be under 30 seconds. Jingle's tones are original and shorter than that. The in-app ringing screen loops the tone until you snooze or get up. A locked phone plays the tone once.
+- **Notification length.** Custom sounds must be under 30 seconds. Jingle's tones are original and shorter than that. A Matthew Finley catalog track is longer, so the in-app alarm plays the downloaded file and a locked iPhone plays a 28-second clip saved as `catalog-<id>.caf` in `Library/Sounds`. If that clip is missing, the notification uses Dawn. The in-app ringing screen loops until you snooze or get up. A locked phone plays the tone once.
 - **64 pending notifications.** iOS keeps at most 64 scheduled local notifications. Jingle caps what it schedules and prefers the real alarm over machine mode if a phone is full of repeats.
 - **Time Sensitive.** Alarm notifications use Time Sensitive interruption level so they can surface during Focus when the person allows it. Focus can still be configured to hide them.
 - **No push server.** Remote notifications are disabled in the config plugin. There is nothing to host.
