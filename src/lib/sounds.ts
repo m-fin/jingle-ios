@@ -1,4 +1,6 @@
-import type { SoundId } from "./types";
+import { CATALOG_ARTIST } from "./catalog";
+import { bundledSoundFile } from "./soundFiles";
+import type { CatalogTone, SoundId } from "./types";
 
 export type SoundMeta = {
   id: SoundId;
@@ -54,6 +56,17 @@ export const MACHINE_SOUND = {
 };
 
 export function soundFile(id: SoundId | "machine"): string {
-  if (id === "machine") return MACHINE_SOUND.file;
-  return SOUNDS[id].file;
+  return bundledSoundFile(id);
+}
+
+export function alarmToneName(alarm: { sound: SoundId; catalogTone?: Pick<CatalogTone, "title"> | null }): string {
+  const title = alarm.catalogTone?.title?.trim();
+  if (title) return title;
+  return SOUNDS[alarm.sound]?.name ?? SOUNDS.dawn.name;
+}
+
+export function alarmToneLine(alarm: { sound: SoundId; catalogTone?: Pick<CatalogTone, "title"> | null }): string {
+  const name = alarmToneName(alarm);
+  if (alarm.catalogTone) return `${name} · ${CATALOG_ARTIST}`;
+  return name;
 }

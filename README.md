@@ -2,7 +2,7 @@
 
 Your wake up morning companion. An iPhone alarm clock you can run without a paid Apple Developer account, and ship to the App Store once that account is active.
 
-Jingle is a dark bedside clock. The time comes from the iPhone. The display can go fully black. A default alarm is ready at 6:00 AM on weekdays. You can add a few more, pick an original wake tone, turn snooze off, and play a quiet machine-mode tone before the alarm. There is no account and no server.
+Jingle is a dark bedside clock. The time comes from the iPhone. The display can go fully black. A default alarm is ready at 6:00 AM on weekdays. You can add a few more, pick an original wake tone or any track from the Matthew Finley catalog, turn snooze off, and play a quiet machine-mode tone before the alarm. There is no account. Alarms stay on the phone. A catalog tone is downloaded from the public catalog onto the device.
 
 Designed by Matthew Finley. Source is released under the [MIT License](LICENSE). Copyright 2026 Matthew Finley.
 
@@ -28,7 +28,7 @@ Web is a preview of the interface. Locking the phone, local notifications, and t
 
 ## What stays on the phone
 
-Alarms, snooze, and appearance are stored on device. Wake sounds in `assets/sounds` are original tones from `scripts/generate-sounds.py`. Do not replace them with copyrighted music.
+Alarms, snooze, and appearance are stored on device. Wake sounds in `assets/sounds` are original tones from `scripts/generate-sounds.py`. Do not replace them with copyrighted music. The Matthew Finley Catalog tab can download a track from `https://matthewfinley.org/music/catalog.json` and credit it to Matthew Finley. The full file plays in the app. A locked iPhone gets a short clip in `Library/Sounds`, and falls back to Dawn if that file is missing. The browser preview can search the catalog. Saving the audio, and the wake clip, happens on iPhone.
 
 The privacy policy is in the app (Settings → Privacy policy) and in [PRIVACY.md](PRIVACY.md).
 

@@ -1,0 +1,12 @@
+{
+  "name": "jingle-wake-clip",
+  "version": "1.0.0",
+  "description": "Exports a short Matthew Finley wake clip into Library/Sounds for iOS notifications.",
+  "license": "MIT",
+  "main": "index.ts",
+  "types": "index.ts",
+  "peerDependencies": {
+    "expo": "*",
+    "expo-modules-core": "*"
+  }
+}

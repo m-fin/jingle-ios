@@ -7,8 +7,8 @@ import { KeepAwake } from "@/components/KeepAwake";
 import { Mark } from "@/components/Mark";
 import { Pill } from "@/components/ui";
 import { haptic } from "@/src/lib/haptics";
+import { playbackForAlarm } from "@/src/lib/catalogDevice";
 import { playSound, stopSound } from "@/src/lib/playback";
-import { SOUNDS } from "@/src/lib/sounds";
 import { clockParts } from "@/src/lib/time";
 import { useAlarms } from "@/src/state/alarms";
 import { useTheme } from "@/src/state/theme";
@@ -63,16 +63,16 @@ export default function RingingScreen() {
 
   useEffect(() => {
     if (!alarm) return;
-    void playSound(SOUNDS[alarm.sound].source, { loop: true, volume: preview ? 0.85 : 1 });
-    if (preview) {
-      return () => {
-        void stopSound();
-      };
-    }
-    const taps = setInterval(() => void haptic("heavy"), 1400);
-    void haptic("heavy");
+    let cancelled = false;
+    void playbackForAlarm(alarm).then((playback) => {
+      if (cancelled) return;
+      void playSound(playback.source, { loop: true, volume: preview ? 0.85 : 1, fadeInMs: playback.fadeInMs });
+    });
+    const taps = preview ? null : setInterval(() => void haptic("heavy"), 1400);
+    if (!preview) void haptic("heavy");
     return () => {
-      clearInterval(taps);
+      cancelled = true;
+      if (taps) clearInterval(taps);
       void stopSound();
     };
   }, [alarm, preview]);

@@ -1,5 +1,12 @@
 export type SoundId = "dawn" | "bell" | "pulse" | "chime";
 
+/** A track chosen from the Matthew Finley catalog. The bundled `sound` remains the fallback. */
+export type CatalogTone = {
+  trackId: string;
+  title: string;
+  collection: string;
+};
+
 export type Alarm = {
   id: string;
   label: string;
@@ -10,6 +17,8 @@ export type Alarm = {
   /** Local calendar day (YYYY-MM-DD) for a one-time alarm. */
   onceDate: string | null;
   sound: SoundId;
+  /** Set when the wake tone is a downloaded Matthew Finley catalog track. */
+  catalogTone?: CatalogTone | null;
   /** Minutes. Zero turns snooze off for this alarm. */
   snoozeMinutes: 0 | 5 | 9 | 15;
   /** Minutes of gentle sound before the alarm. Zero turns machine mode off. */
