@@ -1,3 +1,5 @@
+import type { CatalogTone } from "./tone";
+
 export type SoundId = "dawn" | "bell" | "pulse" | "chime";
 
 export type Alarm = {
@@ -10,6 +12,8 @@ export type Alarm = {
   /** Local calendar day (YYYY-MM-DD) for a one-time alarm. */
   onceDate: string | null;
   sound: SoundId;
+  /** Matthew Finley catalog track. Null keeps the bundled `sound`. */
+  catalog: CatalogTone | null;
   /** Minutes. Zero turns snooze off for this alarm. */
   snoozeMinutes: 0 | 5 | 9 | 15;
   /** Minutes of gentle sound before the alarm. Zero turns machine mode off. */

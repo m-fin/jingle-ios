@@ -26,6 +26,7 @@ function alarm(overrides: Partial<Alarm> = {}): Alarm {
     repeat: [1, 2, 3, 4, 5],
     onceDate: null,
     sound: "dawn",
+    catalog: null,
     snoozeMinutes: 9,
     machineLeadMinutes: 0,
     enabled: true,

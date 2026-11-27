@@ -1,5 +1,4 @@
-import AsyncStorage from "@react-native-async-storage/async-storage";
-
+import { sanitizeCatalogTone } from "./tone";
 import type { Alarm, Settings, Snooze, SoundId, Store, ThemeChoice } from "./types";
 import { DEFAULT_SETTINGS } from "./types";
 
@@ -19,6 +18,7 @@ function sanitizeAlarm(value: unknown): Alarm | null {
   if (typeof value.hour !== "number" || value.hour < 0 || value.hour > 23) return null;
   if (typeof value.minute !== "number" || value.minute < 0 || value.minute > 59) return null;
   const sound = SOUNDS.has(value.sound as SoundId) ? (value.sound as SoundId) : "dawn";
+  const catalog = sanitizeCatalogTone(value.catalog);
   const snoozeMinutes = SNOOZE.has(value.snoozeMinutes as number) ? (value.snoozeMinutes as Alarm["snoozeMinutes"]) : 9;
   const machineLeadMinutes = MACHINE.has(value.machineLeadMinutes as number)
     ? (value.machineLeadMinutes as Alarm["machineLeadMinutes"])
@@ -38,6 +38,7 @@ function sanitizeAlarm(value: unknown): Alarm | null {
     repeat,
     onceDate: repeat.length > 0 ? null : onceDate,
     sound,
+    catalog,
     snoozeMinutes,
     machineLeadMinutes,
     enabled: value.enabled !== false,
@@ -76,9 +77,14 @@ export function sanitizeStore(value: unknown): Store | null {
   };
 }
 
+async function deviceStorage(): Promise<{ getItem(key: string): Promise<string | null>; setItem(key: string, value: string): Promise<void> }> {
+  const module = await import("@react-native-async-storage/async-storage");
+  return module.default;
+}
+
 export async function loadStore(): Promise<Store | null> {
   try {
-    const raw = await AsyncStorage.getItem(KEY);
+    const raw = await (await deviceStorage()).getItem(KEY);
     if (!raw) return null;
     return sanitizeStore(JSON.parse(raw) as unknown);
   } catch {
@@ -87,5 +93,5 @@ export async function loadStore(): Promise<Store | null> {
 }
 
 export async function saveStore(store: Store): Promise<void> {
-  await AsyncStorage.setItem(KEY, JSON.stringify(store));
+  await (await deviceStorage()).setItem(KEY, JSON.stringify(store));
 }

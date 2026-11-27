@@ -23,7 +23,7 @@ export default function PrivacyScreen() {
       style={{ flex: 1, backgroundColor: colors.bg }}
       contentContainerStyle={{ paddingHorizontal: 22, paddingTop: 8, paddingBottom: Math.max(insets.bottom, 32) }}
     >
-      <Text style={{ color: colors.faint, fontFamily: fonts.medium, fontSize: 13 }}>Effective 15 November 2026</Text>
+      <Text style={{ color: colors.faint, fontFamily: fonts.medium, fontSize: 13 }}>Effective 27 November 2026</Text>
       <Text style={{ ...body, marginTop: 12 }}>
         Jingle is a bedside alarm clock. What you set stays on the iPhone running the app.
       </Text>
@@ -31,7 +31,9 @@ export default function PrivacyScreen() {
       <Text style={heading}>On this phone</Text>
       <Text style={{ ...body, marginTop: 8 }}>
         Alarms, snooze times, and appearance are saved on the device. Jingle does not send that store to a server. The clock uses the iPhone’s own
-        time and does not request location. While the clock is open it can dim the screen, then restore the brightness you had before.
+        time and does not request location. While the clock is open it can dim the screen, then restore the brightness you had before. If you pick a
+        Matthew Finley catalog track, Jingle downloads that public audio and its cover to this phone. The request does not include your name, location,
+        or alarm times.
       </Text>
 
       <Text style={heading}>Notifications</Text>
@@ -43,7 +45,8 @@ export default function PrivacyScreen() {
       <Text style={heading}>Not collected</Text>
       <Text style={{ ...body, marginTop: 8 }}>
         No account, no analytics, and no advertising. Jingle does not sell or share personal information. It does not collect your name, email,
-        contacts, photos, health data, or location. Wake tones are original audio shipped inside the app.
+        contacts, photos, health data, or location. Bundled wake tones are original audio shipped inside the app. A catalog alarm is music by Matthew
+        Finley, saved on this phone after you choose it.
       </Text>
 
       <View style={{ marginTop: 22 }}>

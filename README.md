@@ -30,6 +30,8 @@ Web is a preview of the interface. Locking the phone, local notifications, and t
 
 Alarms, snooze, and appearance are stored on device. Wake sounds in `assets/sounds` are original tones from `scripts/generate-sounds.py`. Do not replace them with copyrighted music.
 
+An alarm can also use a track from the [Matthew Finley catalog](https://matthewfinley.org/music/catalog.json). Jingle downloads that audio onto the phone, keeps a short wake clip for the locked-screen notification, and falls back to Dawn if the file is missing. The artist credit is Matthew Finley.
+
 The privacy policy is in the app (Settings → Privacy policy) and in [PRIVACY.md](PRIVACY.md).
 
 ## Configuration

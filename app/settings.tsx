@@ -106,7 +106,7 @@ export default function SettingsScreen() {
           Your wake up morning companion.
         </Text>
         <Text style={{ color: colors.faint, fontFamily: fonts.body, fontSize: 13, marginTop: 14, textAlign: "center", lineHeight: 19 }}>
-          Designed by Matthew Finley. Wake tones are original. Alarms stay on this phone.
+          Designed by Matthew Finley. Bundled wake tones are original. A catalog track is saved on this phone.
         </Text>
         <Text style={{ color: colors.faint, fontFamily: fonts.medium, fontSize: 13, marginTop: 8, textAlign: "center" }}>
           Version {version} · {bundleId}
